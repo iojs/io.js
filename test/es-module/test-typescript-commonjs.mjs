@@ -59,12 +59,14 @@ test('require a .ts file with implicit extension fails', async () => {
 });
 
 test('expect failure of an .mts file with CommonJS syntax', async () => {
-  const result = await spawnPromisified(process.execPath, [
-    fixtures.path('typescript/cts/test-cts-but-module-syntax.cts'),
-  ]);
+  const testFilePath = fixtures.path('typescript/cts/test-cts-but-module-syntax.cts');
+  const result = await spawnPromisified(process.execPath, [testFilePath]);
 
   strictEqual(result.stdout, '');
-  match(result.stderr, /To load an ES module, set "type": "module" in the package\.json or use the \.mjs extension\./);
+
+  const expectedWarning = `Failed to load the ES module: ${testFilePath}. Make sure to set "type": "module" in the nearest package.json file or use the .mjs extension.`;
+  match(result.stderr, new RegExp(expectedWarning));
+
   strictEqual(result.code, 1);
 });
 
