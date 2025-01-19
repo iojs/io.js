@@ -1693,7 +1693,7 @@ static std::string GetRequireEsmWarning(Local<String> filename) {
   Utf8Value filename_utf8(isolate, filename);
 
   std::string warning_message =
-      "Failed to load the ES module: " + std::string(*filename_utf8) +
+      "Failed to load the ES module: " + filename_utf8.ToString() +
       ". Make sure to set \"type\": \"module\" in the nearest package.json "
       "file "
       "or use the .mjs extension.";
