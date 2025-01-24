@@ -1,6 +1,6 @@
 import { skip, spawnPromisified } from '../common/index.mjs';
 import * as fixtures from '../common/fixtures.mjs';
-import { match, strictEqual } from 'node:assert';
+import { match, strictEqual, assert } from 'node:assert';
 import { test } from 'node:test';
 
 if (!process.config.variables.node_use_amaro) skip('Requires Amaro');
@@ -65,6 +65,7 @@ test('expect failure of an .mts file with CommonJS syntax', async () => {
   strictEqual(result.stdout, '');
 
   const expectedWarning = `Failed to load the ES module: ${testFilePath}. Make sure to set "type": "module" in the nearest package.json file or use the .mjs extension.`;
+
   try {
     assert.ok(result.stderr.includes(expectedWarning), 'stderr does not contain the expected warning');
   } catch (e) {
