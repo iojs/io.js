@@ -15,8 +15,6 @@ describe('.env supports edge cases', () => {
   it('supports multiple declarations, including optional ones', async () => {
     const code = `
       const assert = require('assert');
-const { parseEnv } = require('node:util');
-const fs = require('fs');
       assert.strictEqual(process.env.BASIC, 'basic');
       assert.strictEqual(process.env.NODE_NO_WARNINGS, '1');
     `.trim();
