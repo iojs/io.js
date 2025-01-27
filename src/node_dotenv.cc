@@ -105,6 +105,11 @@ Local<Object> Dotenv::ToObject(Environment* env) const {
   return result;
 }
 
+// Removes leading and trailing spaces from a string_view
+// Returns an empty string_view if the input is empty
+// Example:
+//   trim_spaces("  hello  ") -> "hello"
+//   trim_spaces("") -> ""
 std::string_view trim_spaces(std::string_view input) {
   if (input.empty()) return "";
   if (input.front() == ' ') {
@@ -130,18 +135,26 @@ void Dotenv::ParseContent(const std::string_view input) {
 
   while (!content.empty()) {
     // Skip empty lines and comments
+    // Example:
+    //   # This is a comment
+    //
+    //   KEY=value
     if (content.front() == '\n' || content.front() == '#') {
       auto newline = content.find('\n');
       if (newline != std::string_view::npos) {
         content.remove_prefix(newline + 1);
+        // Trim spaces after skipping comments or empty lines to handle
+        // cases where there might be trailing whitespace
         content = trim_spaces(content);
         continue;
       } else {
+        // If no newline is found, we've reached the end of content
         break;
       }
     }
 
-    // Find the next equals sign and newline
+    // Find the next equals sign to identify key-value pairs
+    // Using find_first_of to optimize searching for both = and \n in one pass
     auto equal = content.find('=');
     auto newline = content.find('\n');
 
@@ -161,6 +174,10 @@ void Dotenv::ParseContent(const std::string_view input) {
     key = trim_spaces(key);
     content = trim_spaces(content);
 
+    // Skip lines with empty keys after trimming spaces
+    // Examples of invalid keys that would be skipped:
+    //   =value
+    //   "   "=value
     if (key.empty()) {
       // Skip invalid empty key
       if (newline != std::string_view::npos) {
@@ -171,9 +188,12 @@ void Dotenv::ParseContent(const std::string_view input) {
       break;
     }
 
-    // Remove export prefix from key
+    // Remove export prefix from key and ensure proper spacing
+    // Example: export FOO=bar -> FOO=bar
     if (key.starts_with("export ")) {
       key.remove_prefix(7);
+      // Trim spaces after removing export prefix to handle cases like:
+      // export   FOO=bar
       key = trim_spaces(key);
     }
 
