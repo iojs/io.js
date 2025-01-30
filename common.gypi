@@ -37,7 +37,7 @@
 
     # Reset this number to 0 on major V8 upgrades.
     # Increment by one for each non-official patch applied to deps/v8.
-    'v8_embedder_string': '-node.12',
+    'v8_embedder_string': '-node.13',
 
     ##### V8 defaults for Node.js #####
 
@@ -483,6 +483,9 @@
           # but we still inherit it from uv.h.
           'NOMINMAX',
         ],
+      }],
+      ['ccache_used == 1', {
+        'defines': ['CCACHE_USED',],
       }],
       [ 'OS in "linux freebsd openbsd solaris aix os400"', {
         'cflags': [ '-pthread' ],
