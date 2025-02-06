@@ -105,8 +105,8 @@ Local<Object> Dotenv::ToObject(Environment* env) const {
   return result;
 }
 
-// Removes leading and trailing spaces from a string_view
-// Returns an empty string_view if the input is empty
+// Removes leading and trailing spaces from a string_view.
+// Returns an empty string_view if the input is empty.
 // Example:
 //   trim_spaces("  hello  ") -> "hello"
 //   trim_spaces("") -> ""
