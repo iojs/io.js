@@ -29,14 +29,14 @@ Last update:
 - resources: https://github.com/web-platform-tests/wpt/tree/1e140d63ec/resources
 - streams: https://github.com/web-platform-tests/wpt/tree/bc9dcbbf1a/streams
 - url: https://github.com/web-platform-tests/wpt/tree/a23788b77a/url
-- urlpattern: https://github.com/web-platform-tests/wpt/tree/1b56d89a26/urlpattern
+- urlpattern: https://github.com/web-platform-tests/wpt/tree/ef6d83d789/urlpattern
 - user-timing: https://github.com/web-platform-tests/wpt/tree/5ae85bf826/user-timing
 - wasm/jsapi: https://github.com/web-platform-tests/wpt/tree/cde25e7e3c/wasm/jsapi
 - wasm/webapi: https://github.com/web-platform-tests/wpt/tree/fd1b23eeaa/wasm/webapi
 - WebCryptoAPI: https://github.com/web-platform-tests/wpt/tree/3e3374efde/WebCryptoAPI
 - webidl/ecmascript-binding/es-exceptions: https://github.com/web-platform-tests/wpt/tree/a370aad338/webidl/ecmascript-binding/es-exceptions
 - webmessaging/broadcastchannel: https://github.com/web-platform-tests/wpt/tree/6495c91853/webmessaging/broadcastchannel
-- webstorage: https://github.com/web-platform-tests/wpt/tree/9dafa89214/webstorage
+- webstorage: https://github.com/web-platform-tests/wpt/tree/1291340aaa/webstorage
 
 [Web Platform Tests]: https://github.com/web-platform-tests/wpt
 [`git node wpt`]: https://github.com/nodejs/node-core-utils/blob/main/docs/git-node.md#git-node-wpt

@@ -580,7 +580,9 @@ property throw an exception with the code `ERR_PROTO_ACCESS`.
 ### `--disable-sigusr1`
 
 <!-- YAML
-added: v23.7.0
+added:
+  - v23.7.0
+  - v22.14.0
 -->
 
 > Stability: 1.2 - Release candidate
@@ -590,13 +592,13 @@ Disable the ability of starting a debugging session by sending a
 
 ### `--disable-warning=code-or-type`
 
-> Stability: 1.1 - Active development
-
 <!-- YAML
 added:
   - v21.3.0
   - v20.11.0
 -->
+
+> Stability: 1.1 - Active development
 
 Disable specific process warnings by `code` or `type`.
 
@@ -800,18 +802,16 @@ node --entry-url 'data:text/javascript,console.log("Hello")'
 
 ### `--env-file-if-exists=config`
 
-> Stability: 1.1 - Active development
-
 <!-- YAML
 added: v22.9.0
 -->
+
+> Stability: 1.1 - Active development
 
 Behavior is the same as [`--env-file`][], but an error is not thrown if the file
 does not exist.
 
 ### `--env-file=config`
-
-> Stability: 1.1 - Active development
 
 <!-- YAML
 added: v20.6.0
@@ -822,6 +822,8 @@ changes:
     pr-url: https://github.com/nodejs/node/pull/51289
     description: Add support to multi-line values.
 -->
+
+> Stability: 1.1 - Active development
 
 Loads environment variables from a file relative to the current directory,
 making them available to applications on `process.env`. The [environment
@@ -994,7 +996,7 @@ top-level awaits, and print their location to help users find them.
 ### `--experimental-quic`
 
 <!--
-added: REPLACEME
+added: v23.8.0
 -->
 
 Enables the experimental `node:quic` built-in module.
@@ -2868,7 +2870,37 @@ The following values are valid for `mode`:
 Node.js uses the trusted CA certificates present in the system store along with
 the `--use-bundled-ca`, `--use-openssl-ca` options.
 
-This option is available to macOS only.
+This option is only supported on Windows and macOS, and the certificate trust policy
+is planned to follow [Chromium's policy for locally trusted certificates][]:
+
+On macOS, the following certifcates are trusted:
+
+* Default and System Keychains
+  * Trust:
+    * Any certificate where the “When using this certificate” flag is set to “Always Trust” or
+    * Any certificate where the “Secure Sockets Layer (SSL)” flag is set to “Always Trust.”
+  * Distrust:
+    * Any certificate where the “When using this certificate” flag is set to “Never Trust” or
+    * Any certificate where the “Secure Sockets Layer (SSL)” flag is set to “Never Trust.”
+
+On Windows, the following certificates are currently trusted (unlike
+Chromium's policy, distrust is not currently supported):
+
+* Local Machine (accessed via `certlm.msc`)
+  * Trust:
+    * Trusted Root Certification Authorities
+    * Trusted People
+    * Enterprise Trust -> Enterprise -> Trusted Root Certification Authorities
+    * Enterprise Trust -> Enterprise -> Trusted People
+    * Enterprise Trust -> Group Policy -> Trusted Root Certification Authorities
+    * Enterprise Trust -> Group Policy -> Trusted People
+* Current User (accessed via `certmgr.msc`)
+  * Trust:
+    * Trusted Root Certification Authorities
+    * Enterprise Trust -> Group Policy -> Trusted Root Certification Authorities
+
+On any supported system, Node.js would check that the certificate's key usage and extended key
+usage are consistent with TLS use cases before using it for server authentication.
 
 ### `--v8-options`
 
@@ -3688,6 +3720,7 @@ node --stack-trace-limit=12 -p -e "Error.stackTraceLimit" # prints 12
 
 [#42511]: https://github.com/nodejs/node/issues/42511
 [Chrome DevTools Protocol]: https://chromedevtools.github.io/devtools-protocol/
+[Chromium's policy for locally trusted certificates]: https://chromium.googlesource.com/chromium/src/+/main/net/data/ssl/chrome_root_store/faq.md#does-the-chrome-certificate-verifier-consider-local-trust-decisions
 [CommonJS]: modules.md
 [CommonJS module]: modules.md
 [DEP0025 warning]: deprecations.md#dep0025-requirenodesys
