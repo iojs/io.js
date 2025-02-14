@@ -1787,8 +1787,7 @@ static void CompileFunctionForCJSLoader(
         // the user listener throws. In that case, don't try to throw the syntax
         // error.
         std::string warning_message = GetRequireEsmWarning(filename);
-        should_throw =
-            ProcessEmitWarningSync(env, warning_message).IsJust();
+        should_throw = ProcessEmitWarningSync(env, warning_message).IsJust();
       }
       if (should_throw) {
         isolate->ThrowException(cjs_exception);
