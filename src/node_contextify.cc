@@ -1788,7 +1788,7 @@ static void CompileFunctionForCJSLoader(
         // error.
         std::string warning_message = GetRequireEsmWarning(filename);
         should_throw =
-            ProcessEmitWarningSync(env, warning_message.c_str()).IsJust();
+            ProcessEmitWarningSync(env, warning_message).IsJust();
       }
       if (should_throw) {
         isolate->ThrowException(cjs_exception);
