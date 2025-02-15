@@ -1,18 +1,18 @@
 import { skip, spawnPromisified } from '../common/index.mjs';
 import * as fixtures from '../common/fixtures.mjs';
-import assert, { match, strictEqual } from 'node:assert';
+import assert, { match, strictEqual }  from 'node:assert';
 import { test } from 'node:test';
 
 if (!process.config.variables.node_use_amaro) skip('Requires Amaro');
 
 test('require a .ts file with explicit extension succeeds', async () => {
-  const result = await spawnPromisified(
-    process.execPath,
-    ['--eval', 'require("./test-typescript.ts")', '--no-warnings'],
-    {
-      cwd: fixtures.path('typescript/ts'),
-    }
-  );
+  const result = await spawnPromisified(process.execPath, [
+    '--eval',
+    'require("./test-typescript.ts")',
+    '--no-warnings',
+  ], {
+    cwd: fixtures.path('typescript/ts'),
+  });
 
   strictEqual(result.stderr, '');
   strictEqual(result.stdout, 'Hello, TypeScript!\n');
@@ -20,13 +20,13 @@ test('require a .ts file with explicit extension succeeds', async () => {
 });
 
 test('eval require a .ts file with implicit extension fails', async () => {
-  const result = await spawnPromisified(
-    process.execPath,
-    ['--eval', 'require("./test-typescript")', '--no-warnings'],
-    {
-      cwd: fixtures.path('typescript/ts'),
-    }
-  );
+  const result = await spawnPromisified(process.execPath, [
+    '--eval',
+    'require("./test-typescript")',
+    '--no-warnings',
+  ], {
+    cwd: fixtures.path('typescript/ts'),
+  });
 
   strictEqual(result.stdout, '');
   match(result.stderr, /Error: Cannot find module/);
@@ -34,13 +34,13 @@ test('eval require a .ts file with implicit extension fails', async () => {
 });
 
 test('eval require a .cts file with implicit extension fails', async () => {
-  const result = await spawnPromisified(
-    process.execPath,
-    ['--eval', 'require("./test-cts-typescript")', '--no-warnings'],
-    {
-      cwd: fixtures.path('typescript/ts'),
-    }
-  );
+  const result = await spawnPromisified(process.execPath, [
+    '--eval',
+    'require("./test-cts-typescript")',
+    '--no-warnings',
+  ], {
+    cwd: fixtures.path('typescript/ts'),
+  });
 
   strictEqual(result.stdout, '');
   match(result.stderr, /Error: Cannot find module/);
@@ -59,20 +59,15 @@ test('require a .ts file with implicit extension fails', async () => {
 });
 
 test('expect failure of an .mts file with CommonJS syntax', async () => {
-  const testFilePath = fixtures.path(
-    'typescript/cts/test-cts-but-module-syntax.cts'
-  );
+  const testFilePath = fixtures.path('typescript/cts/test-cts-but-module-syntax.cts');
   const result = await spawnPromisified(process.execPath, [testFilePath]);
 
   strictEqual(result.stdout, '');
 
-  const expectedWarning =
-    'To load an ES module, set "type": "module" in the package.json or use the .mjs extension.';
+  const expectedWarning = "To load an ES module, set \"type\": \"module\" in the package.json or use the .mjs extension.";
   try {
-    assert.ok(
-      result.stderr.includes(expectedWarning),
-      `stderr does not contain the expected warning. Actual stderr: ${result.stderr}`
-    );
+
+  assert.ok(result.stderr.includes(expectedWarning), `stderr does not contain the expected warning. Actual stderr: ${result.stderr}`);
   } catch (e) {
     if (e?.code === 'ERR_ASSERTION') {
       e.expected = expectedWarning;
