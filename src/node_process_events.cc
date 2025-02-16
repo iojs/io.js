@@ -24,10 +24,10 @@ Maybe<bool> ProcessEmitWarningSync(Environment* env, std::string_view message) {
   Local<Context> context = env->context();
   Local<String> message_string;
   if (!String::NewFromUtf8(isolate,
-                              message.data(),
-                              NewStringType::kNormal,
-                              static_cast<int>(message.size()))
-          .ToLocal(&message_string)) {
+                           message.data(),
+                           NewStringType::kNormal,
+                           static_cast<int>(message.size()))
+           .ToLocal(&message_string)) {
     return Nothing<bool>();
   }
 
