@@ -17,6 +17,7 @@ using v8::Nothing;
 using v8::Object;
 using v8::String;
 using v8::Value;
+using v8::NewStringType;
 
 Maybe<bool> ProcessEmitWarningSync(Environment* env, std::string_view message) {
   Isolate* isolate = env->isolate();
