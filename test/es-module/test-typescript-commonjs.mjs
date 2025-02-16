@@ -62,9 +62,9 @@ test('expect failure of an .mts file with CommonJS syntax', async () => {
   const testFilePath = fixtures.path('typescript/cts/test-cts-but-module-syntax.cts');
   const result = await spawnPromisified(process.execPath, [testFilePath]);
 
-  strictEqual(result.stdout, '');
+  assert.strictEqual(result.stdout, '');
 
-  const expectedWarning = 'To load an ES module, set "type": "module" in the package.json or use the .mjs extension.';
+  const expectedWarning = `Failed to load the ES module: ${testFilePath}. Make sure to set "type": "module" in the nearest package.json file or use the .mjs extension.`;
   try {
 
     assert.ok(result.stderr.includes(expectedWarning), `stderr does not contain the expected warning. Actual stderr: ${result.stderr}`);
