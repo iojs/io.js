@@ -21,12 +21,14 @@ using v8::Value;
 Maybe<bool> ProcessEmitWarningSync(Environment* env, std::string_view message) {
   Isolate* isolate = env->isolate();
   Local<Context> context = env->context();
-  v8::Local<v8::String> message_string =
-      v8::String::NewFromUtf8(isolate,
+  Local<String> message_string;
+  if (!String::NewFromUtf8(isolate,
                               message.data(),
-                              v8::NewStringType::kNormal,
+                              NewStringType::kNormal,
                               static_cast<int>(message.size()))
-          .ToLocalChecked();
+          .ToLocal(&message_string)) {
+    return Nothing<bool>();
+  }
 
   Local<Value> argv[] = {message_string};
   Local<Function> emit_function = env->process_emit_warning_sync();
