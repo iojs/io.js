@@ -69,7 +69,8 @@ test('expect failure of an .mts file with CommonJS syntax', async () => {
     assert.match(
       result.stderr,
       new RegExp(
-        `Failed to load the ES module: ${testFilePath}\\. Make sure to set "type": "module" in the nearest package\\.json file or use the \\.mjs extension\\.`
+        `Failed to load the ES module: ${testFilePath}\\. Make sure to set "type": "module" ` +
+          'in the nearest package\\.json file or use the \\.mjs extension\\.'
       )
     );
 
