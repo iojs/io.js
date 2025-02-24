@@ -66,14 +66,7 @@ test('expect failure of an .mts file with CommonJS syntax', async () => {
 
   const expectedWarning = `Failed to load the ES module: ${testFilePath}. Make sure to set "type": "module" in the nearest package.json file or use the .mjs extension.`;
   try {
-    assert.match(
-      result.stderr,
-      new RegExp(
-        `Failed to load the ES module: ${testFilePath}\\. Make sure to set "type": "module" ` +
-          'in the nearest package\\.json file or use the \\.mjs extension\\.'
-      )
-    );
-
+    assert.ok(result.stderr.includes(expectedWarning));
   } catch (e) {
     if (e?.code === 'ERR_ASSERTION') {
       e.expected = expectedWarning;
