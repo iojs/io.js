@@ -10,6 +10,7 @@ changes:
   - version:
     - v23.1.0
     - v22.12.0
+    - v20.18.3
     - v18.20.5
     pr-url: https://github.com/nodejs/node/pull/55333
     description: Import attributes are no longer experimental.
@@ -641,6 +642,7 @@ changes:
   - version:
     - v23.1.0
     - v22.12.0
+    - v20.18.3
     - v18.20.5
     pr-url: https://github.com/nodejs/node/pull/55333
     description: JSON modules are no longer experimental.
@@ -1144,7 +1146,7 @@ resolution for ESM specifiers is [commonjs-extension-resolution-loader][].
 [`process.dlopen`]: process.md#processdlopenmodule-filename-flags
 [`require(esm)`]: modules.md#loading-ecmascript-modules-using-require
 [`url.fileURLToPath()`]: url.md#urlfileurltopathurl-options
-[cjs-module-lexer]: https://github.com/nodejs/cjs-module-lexer/tree/1.2.2
+[cjs-module-lexer]: https://github.com/nodejs/cjs-module-lexer/tree/2.0.0
 [commonjs-extension-resolution-loader]: https://github.com/nodejs/loaders-test/tree/main/commonjs-extension-resolution-loader
 [custom https loader]: module.md#import-from-https
 [import.meta.resolve]: #importmetaresolvespecifier

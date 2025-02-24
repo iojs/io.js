@@ -8,6 +8,9 @@
 </tr>
 <tr>
 <td>
+<a href="#23.8.0">23.8.0</a><br/>
+<a href="#23.7.0">23.7.0</a><br/>
+<a href="#23.6.1">23.6.1</a><br/>
 <a href="#23.6.0">23.6.0</a><br/>
 <a href="#23.5.0">23.5.0</a><br/>
 <a href="#23.4.0">23.4.0</a><br/>
@@ -43,6 +46,374 @@
   * [0.10.x](CHANGELOG_V010.md)
   * [io.js](CHANGELOG_IOJS.md)
   * [Archive](CHANGELOG_ARCHIVE.md)
+
+<a id="23.8.0"></a>
+
+## 2025-02-13, Version 23.8.0 (Current), @targos
+
+### Notable Changes
+
+#### Support for using system CA certificates store on macOS and Windows
+
+This version adds the `--use-system-ca` command-line flag, which instructs Node.js
+to use the trusted CA certificates present in the system store along with
+the `--use-bundled-ca`, `--use-openssl-ca` options.
+
+This option is available on macOS and Windows for now.
+
+Contributed by Tim Jacomb in [#56599](https://github.com/nodejs/node/pull/56599)
+and Joyee Cheung in [#56833](https://github.com/nodejs/node/pull/56833).
+
+#### Introduction of the URL Pattern API
+
+An implementation of the [URL Pattern API](https://developer.mozilla.org/en-US/docs/Web/API/URL_Pattern_API)
+is now available.
+
+The `URLPattern` constructor is exported from the `node:url` module and will be
+available as a global in Node.js 24.
+
+Contributed by Yagiz Nizipli and Daniel Lemire in [#56452](https://github.com/nodejs/node/pull/56452).
+
+#### Support for the zstd compression algorithm
+
+Node.js now includes support for the Zstandard (zstd) compression algorithm.
+Various APIs have been added to the `node:zlib` module for both compression and decompression
+of zstd streams.
+
+Contributed by Jan Krems in [#52100](https://github.com/nodejs/node/pull/52100).
+
+#### Node.js thread names
+
+Threads created by the Node.js process are now named to improve the debugging experience.
+Worker threads will use the `name` option that can be passed to the `Worker` constructor.
+
+Contributed by Rafael Gonzaga in [#56416](https://github.com/nodejs/node/pull/56416).
+
+#### Timezone data has been updated to 2025a
+
+Included changes:
+
+* Paraguay adopts permanent -03 starting spring 2024.
+* Improve pre-1991 data for the Philippines.
+
+#### Other Notable Changes
+
+* \[[`39997867cf`](https://github.com/nodejs/node/commit/39997867cf)] - **(SEMVER-MINOR)** **sqlite**: allow returning `ArrayBufferView`s from user-defined functions (René) [#56790](https://github.com/nodejs/node/pull/56790)
+
+### Commits
+
+* \[[`0ee9c34d63`](https://github.com/nodejs/node/commit/0ee9c34d63)] - **benchmark**: add simple parse and test benchmarks for URLPattern (James M Snell) [#56882](https://github.com/nodejs/node/pull/56882)
+* \[[`b3f2045d14`](https://github.com/nodejs/node/commit/b3f2045d14)] - **build**: gyp exclude libm linking on macOS (deepak1556) [#56901](https://github.com/nodejs/node/pull/56901)
+* \[[`e0dd9aefd6`](https://github.com/nodejs/node/commit/e0dd9aefd6)] - **build**: remove explicit linker call to libm on macOS (deepak1556) [#56901](https://github.com/nodejs/node/pull/56901)
+* \[[`52399da780`](https://github.com/nodejs/node/commit/52399da780)] - **build**: link with Security.framework in GN build (Cheng) [#56895](https://github.com/nodejs/node/pull/56895)
+* \[[`582b9221c9`](https://github.com/nodejs/node/commit/582b9221c9)] - **build**: do not put commands in sources variables (Cheng) [#56885](https://github.com/nodejs/node/pull/56885)
+* \[[`ea61b956e9`](https://github.com/nodejs/node/commit/ea61b956e9)] - **build**: add double quotes around <(python) (Luigi Pinca) [#56826](https://github.com/nodejs/node/pull/56826)
+* \[[`14236ef778`](https://github.com/nodejs/node/commit/14236ef778)] - **build**: add build option suppress\_all\_error\_on\_warn (Michael Dawson) [#56647](https://github.com/nodejs/node/pull/56647)
+* \[[`dfd3f430f3`](https://github.com/nodejs/node/commit/dfd3f430f3)] - **build,win**: enable ccache (Stefan Stojanovic) [#56847](https://github.com/nodejs/node/pull/56847)
+* \[[`3e207bd9ec`](https://github.com/nodejs/node/commit/3e207bd9ec)] - **(SEMVER-MINOR)** **crypto**: support --use-system-ca on Windows (Joyee Cheung) [#56833](https://github.com/nodejs/node/pull/56833)
+* \[[`fe2694a992`](https://github.com/nodejs/node/commit/fe2694a992)] - **crypto**: fix X509\* leak in --use-system-ca (Joyee Cheung) [#56832](https://github.com/nodejs/node/pull/56832)
+* \[[`60039a2c36`](https://github.com/nodejs/node/commit/60039a2c36)] - **crypto**: add api to get openssl security level (Michael Dawson) [#56601](https://github.com/nodejs/node/pull/56601)
+* \[[`39a474f7c0`](https://github.com/nodejs/node/commit/39a474f7c0)] - **(SEMVER-MINOR)** **crypto**: added support for reading certificates from macOS system store (Tim Jacomb) [#56599](https://github.com/nodejs/node/pull/56599)
+* \[[`144bee8067`](https://github.com/nodejs/node/commit/144bee8067)] - **deps**: update zlib to 1.3.0.1-motley-788cb3c (Node.js GitHub Bot) [#56655](https://github.com/nodejs/node/pull/56655)
+* \[[`7fd39e3a79`](https://github.com/nodejs/node/commit/7fd39e3a79)] - **deps**: update sqlite to 3.49.0 (Node.js GitHub Bot) [#56654](https://github.com/nodejs/node/pull/56654)
+* \[[`d698cb5434`](https://github.com/nodejs/node/commit/d698cb5434)] - **deps**: update amaro to 0.3.2 (marco-ippolito) [#56916](https://github.com/nodejs/node/pull/56916)
+* \[[`dbd09067c0`](https://github.com/nodejs/node/commit/dbd09067c0)] - **deps**: V8: cherry-pick 9ab40592f697 (Levi Zim) [#56781](https://github.com/nodejs/node/pull/56781)
+* \[[`ee33ef3aa6`](https://github.com/nodejs/node/commit/ee33ef3aa6)] - **deps**: update cjs-module-lexer to 2.0.0 (Michael Dawson) [#56855](https://github.com/nodejs/node/pull/56855)
+* \[[`c0542557d0`](https://github.com/nodejs/node/commit/c0542557d0)] - **deps**: update timezone to 2025a (Node.js GitHub Bot) [#56876](https://github.com/nodejs/node/pull/56876)
+* \[[`d67cb1f9bb`](https://github.com/nodejs/node/commit/d67cb1f9bb)] - **deps**: update simdjson to 3.12.0 (Node.js GitHub Bot) [#56874](https://github.com/nodejs/node/pull/56874)
+* \[[`70b04b4314`](https://github.com/nodejs/node/commit/70b04b4314)] - **deps**: update googletest to e235eb3 (Node.js GitHub Bot) [#56873](https://github.com/nodejs/node/pull/56873)
+* \[[`e11cda003f`](https://github.com/nodejs/node/commit/e11cda003f)] - **(SEMVER-MINOR)** **deps**: update ada to v3.0.1 (Yagiz Nizipli) [#56452](https://github.com/nodejs/node/pull/56452)
+* \[[`8743ef525d`](https://github.com/nodejs/node/commit/8743ef525d)] - **deps**: update simdjson to 3.11.6 (Node.js GitHub Bot) [#56250](https://github.com/nodejs/node/pull/56250)
+* \[[`0f553e5575`](https://github.com/nodejs/node/commit/0f553e5575)] - **deps**: update amaro to 0.3.1 (Node.js GitHub Bot) [#56785](https://github.com/nodejs/node/pull/56785)
+* \[[`380a8d8d2f`](https://github.com/nodejs/node/commit/380a8d8d2f)] - **(SEMVER-MINOR)** **deps,tools**: add zstd 1.5.6 (Jan Krems) [#52100](https://github.com/nodejs/node/pull/52100)
+* \[[`66898a7c3b`](https://github.com/nodejs/node/commit/66898a7c3b)] - **doc**: update history of stream.Readable.toWeb() (Jimmy Leung) [#56928](https://github.com/nodejs/node/pull/56928)
+* \[[`9e29416e12`](https://github.com/nodejs/node/commit/9e29416e12)] - **doc**: make MDN links to global classes more consistent (Antoine du Hamel) [#56924](https://github.com/nodejs/node/pull/56924)
+* \[[`6bc270728a`](https://github.com/nodejs/node/commit/6bc270728a)] - **doc**: make MDN links to global classes more consistent in `assert.md` (Antoine du Hamel) [#56920](https://github.com/nodejs/node/pull/56920)
+* \[[`00da003171`](https://github.com/nodejs/node/commit/00da003171)] - **doc**: make MDN links to global classes more consistent (Antoine du Hamel) [#56923](https://github.com/nodejs/node/pull/56923)
+* \[[`d90198793a`](https://github.com/nodejs/node/commit/d90198793a)] - **doc**: make MDN links to global classes more consistent in `util.md` (Antoine du Hamel) [#56922](https://github.com/nodejs/node/pull/56922)
+* \[[`5f4377a759`](https://github.com/nodejs/node/commit/5f4377a759)] - **doc**: make MDN links to global classes more consistent in `buffer.md` (Antoine du Hamel) [#56921](https://github.com/nodejs/node/pull/56921)
+* \[[`7353266b50`](https://github.com/nodejs/node/commit/7353266b50)] - **doc**: improve type stripping documentation (Marco Ippolito) [#56916](https://github.com/nodejs/node/pull/56916)
+* \[[`888d2acc3a`](https://github.com/nodejs/node/commit/888d2acc3a)] - **doc**: specificy support for erasable ts syntax (Marco Ippolito) [#56916](https://github.com/nodejs/node/pull/56916)
+* \[[`3c082d43bc`](https://github.com/nodejs/node/commit/3c082d43bc)] - **doc**: update post sec release process (Rafael Gonzaga) [#56907](https://github.com/nodejs/node/pull/56907)
+* \[[`f0bf35d3c5`](https://github.com/nodejs/node/commit/f0bf35d3c5)] - **doc**: update websocket link to avoid linking to self (Chengzhong Wu) [#56897](https://github.com/nodejs/node/pull/56897)
+* \[[`373dbb0e6c`](https://github.com/nodejs/node/commit/373dbb0e6c)] - **doc**: mark `--env-file-if-exists` flag as experimental (Juan José) [#56893](https://github.com/nodejs/node/pull/56893)
+* \[[`d436888cc8`](https://github.com/nodejs/node/commit/d436888cc8)] - **doc**: fix typo in cjs example of `util.styleText` (Deokjin Kim) [#56769](https://github.com/nodejs/node/pull/56769)
+* \[[`91638eeb4a`](https://github.com/nodejs/node/commit/91638eeb4a)] - **doc**: clarify sqlite user-defined function behaviour (René) [#56786](https://github.com/nodejs/node/pull/56786)
+* \[[`bab9c4d331`](https://github.com/nodejs/node/commit/bab9c4d331)] - **events**: getMaxListeners detects 0 listeners (Matthew Aitken) [#56807](https://github.com/nodejs/node/pull/56807)
+* \[[`ccaf7fe737`](https://github.com/nodejs/node/commit/ccaf7fe737)] - **fs**: make `FileHandle.readableWebStream` always create byte streams (Ian Kerins) [#55461](https://github.com/nodejs/node/pull/55461)
+* \[[`974cec7a0a`](https://github.com/nodejs/node/commit/974cec7a0a)] - **http**: be more generational GC friendly (ywave620) [#56767](https://github.com/nodejs/node/pull/56767)
+* \[[`be00058712`](https://github.com/nodejs/node/commit/be00058712)] - **inspector**: add Network.Initiator in inspector protocol (Chengzhong Wu) [#56805](https://github.com/nodejs/node/pull/56805)
+* \[[`31293a4b09`](https://github.com/nodejs/node/commit/31293a4b09)] - **inspector**: fix GN build (Cheng) [#56798](https://github.com/nodejs/node/pull/56798)
+* \[[`91a302356b`](https://github.com/nodejs/node/commit/91a302356b)] - **inspector**: fix StringUtil::CharacterCount for unicodes (Chengzhong Wu) [#56788](https://github.com/nodejs/node/pull/56788)
+* \[[`3b305f25f2`](https://github.com/nodejs/node/commit/3b305f25f2)] - **lib**: filter node:quic from builtinModules when flag not used (James M Snell) [#56870](https://github.com/nodejs/node/pull/56870)
+* \[[`f06ee4c54a`](https://github.com/nodejs/node/commit/f06ee4c54a)] - **meta**: bump `actions/upload-artifact` from 4.4.3 to 4.6.0 (dependabot\[bot]) [#56861](https://github.com/nodejs/node/pull/56861)
+* \[[`d230bc3b3c`](https://github.com/nodejs/node/commit/d230bc3b3c)] - **meta**: bump `actions/setup-node` from 4.1.0 to 4.2.0 (dependabot\[bot]) [#56868](https://github.com/nodejs/node/pull/56868)
+* \[[`d4ecfa745e`](https://github.com/nodejs/node/commit/d4ecfa745e)] - **meta**: move one or more collaborators to emeritus (Node.js GitHub Bot) [#56889](https://github.com/nodejs/node/pull/56889)
+* \[[`698c56bb94`](https://github.com/nodejs/node/commit/698c56bb94)] - **meta**: add @nodejs/url as codeowner (Chengzhong Wu) [#56783](https://github.com/nodejs/node/pull/56783)
+* \[[`a274b28857`](https://github.com/nodejs/node/commit/a274b28857)] - **module**: fix require.resolve() crash on non-string paths (Aditi) [#56942](https://github.com/nodejs/node/pull/56942)
+* \[[`4e3052aeee`](https://github.com/nodejs/node/commit/4e3052aeee)] - **quic**: fixup errant LocalVector usage (James M Snell) [#56564](https://github.com/nodejs/node/pull/56564)
+* \[[`dfc61f7bb7`](https://github.com/nodejs/node/commit/dfc61f7bb7)] - **readline**: fix unresolved promise on abortion (Daniel Venable) [#54030](https://github.com/nodejs/node/pull/54030)
+* \[[`9e60501f5e`](https://github.com/nodejs/node/commit/9e60501f5e)] - **sqlite**: fix coverity warnings related to backup() (Colin Ihrig) [#56961](https://github.com/nodejs/node/pull/56961)
+* \[[`1913a4aabc`](https://github.com/nodejs/node/commit/1913a4aabc)] - **sqlite**: restore changes from #55373 (Colin Ihrig) [#56908](https://github.com/nodejs/node/pull/56908)
+* \[[`8410c955b7`](https://github.com/nodejs/node/commit/8410c955b7)] - **sqlite**: fix use-after-free in StatementSync due to premature GC (Divy Srivastava) [#56840](https://github.com/nodejs/node/pull/56840)
+* \[[`01d732d629`](https://github.com/nodejs/node/commit/01d732d629)] - **sqlite**: handle conflicting SQLite and JS errors (Colin Ihrig) [#56787](https://github.com/nodejs/node/pull/56787)
+* \[[`39997867cf`](https://github.com/nodejs/node/commit/39997867cf)] - **(SEMVER-MINOR)** **sqlite**: allow returning `ArrayBufferView`s from user-defined functions (René) [#56790](https://github.com/nodejs/node/pull/56790)
+* \[[`8dc637681a`](https://github.com/nodejs/node/commit/8dc637681a)] - **sqlite, test**: expose sqlite online backup api (Edy Silva) [#56253](https://github.com/nodejs/node/pull/56253)
+* \[[`cfea53eccc`](https://github.com/nodejs/node/commit/cfea53eccc)] - **src**: use `args.This()` in zlib (Michaël Zasso) [#56988](https://github.com/nodejs/node/pull/56988)
+* \[[`6b398d6d0b`](https://github.com/nodejs/node/commit/6b398d6d0b)] - **src**: replace `SplitString` with built-in (Yagiz Nizipli) [#54990](https://github.com/nodejs/node/pull/54990)
+* \[[`fbb32e0a08`](https://github.com/nodejs/node/commit/fbb32e0a08)] - **src**: add nullptr handling for `NativeKeyObject` (Burkov Egor) [#56900](https://github.com/nodejs/node/pull/56900)
+* \[[`83ff7be9fd`](https://github.com/nodejs/node/commit/83ff7be9fd)] - **src**: disallow copy/move fns/constructors (Yagiz Nizipli) [#56811](https://github.com/nodejs/node/pull/56811)
+* \[[`63611d0331`](https://github.com/nodejs/node/commit/63611d0331)] - **src**: add a hard dependency v8\_inspector\_headers (Chengzhong Wu) [#56805](https://github.com/nodejs/node/pull/56805)
+* \[[`3d957d135c`](https://github.com/nodejs/node/commit/3d957d135c)] - **src**: improve error handling in encoding\_binding.cc (James M Snell) [#56915](https://github.com/nodejs/node/pull/56915)
+* \[[`9e9ac3ccd8`](https://github.com/nodejs/node/commit/9e9ac3ccd8)] - **src**: avoid copy by using std::views::keys (Yagiz Nizipli) [#56080](https://github.com/nodejs/node/pull/56080)
+* \[[`086cdc297a`](https://github.com/nodejs/node/commit/086cdc297a)] - **src**: remove obsolete NoArrayBufferZeroFillScope (James M Snell) [#56913](https://github.com/nodejs/node/pull/56913)
+* \[[`915d7aeb37`](https://github.com/nodejs/node/commit/915d7aeb37)] - **src**: set signal inspector io thread name (RafaelGSS) [#56416](https://github.com/nodejs/node/pull/56416)
+* \[[`f4b086d29d`](https://github.com/nodejs/node/commit/f4b086d29d)] - **src**: set thread name for main thread and v8 worker (RafaelGSS) [#56416](https://github.com/nodejs/node/pull/56416)
+* \[[`3579143630`](https://github.com/nodejs/node/commit/3579143630)] - **src**: set worker thread name using worker.name (RafaelGSS) [#56416](https://github.com/nodejs/node/pull/56416)
+* \[[`736ff5de6d`](https://github.com/nodejs/node/commit/736ff5de6d)] - **src**: use a default thread name for inspector (RafaelGSS) [#56416](https://github.com/nodejs/node/pull/56416)
+* \[[`be8e2b4d8f`](https://github.com/nodejs/node/commit/be8e2b4d8f)] - **src**: improve error handling in permission.cc (James M Snell) [#56904](https://github.com/nodejs/node/pull/56904)
+* \[[`d6cf0911ee`](https://github.com/nodejs/node/commit/d6cf0911ee)] - **src**: improve error handling in node\_sqlite (James M Snell) [#56891](https://github.com/nodejs/node/pull/56891)
+* \[[`521fed1bac`](https://github.com/nodejs/node/commit/521fed1bac)] - **src**: improve error handling in node\_os by removing ToLocalChecked (James M Snell) [#56888](https://github.com/nodejs/node/pull/56888)
+* \[[`c9a99df8e7`](https://github.com/nodejs/node/commit/c9a99df8e7)] - **src**: improve error handling in node\_url (James M Snell) [#56886](https://github.com/nodejs/node/pull/56886)
+* \[[`5c82ef3ace`](https://github.com/nodejs/node/commit/5c82ef3ace)] - **src**: add memory retainer traits for external types (Chengzhong Wu) [#56881](https://github.com/nodejs/node/pull/56881)
+* \[[`edb194b2d5`](https://github.com/nodejs/node/commit/edb194b2d5)] - **src**: prevent URLPattern property accessors from crashing on invalid this (James M Snell) [#56877](https://github.com/nodejs/node/pull/56877)
+* \[[`9624049414`](https://github.com/nodejs/node/commit/9624049414)] - **src**: pull in more electron boringssl adjustments (James M Snell) [#56858](https://github.com/nodejs/node/pull/56858)
+* \[[`f8910e384d`](https://github.com/nodejs/node/commit/f8910e384d)] - **src**: make multiple improvements to node\_url\_pattern (James M Snell) [#56871](https://github.com/nodejs/node/pull/56871)
+* \[[`94a0237b18`](https://github.com/nodejs/node/commit/94a0237b18)] - **src**: clean up some obsolete crypto methods (James M Snell) [#56792](https://github.com/nodejs/node/pull/56792)
+* \[[`b240ca67b9`](https://github.com/nodejs/node/commit/b240ca67b9)] - **src**: add check for Bignum in GroupOrderSize (Burkov Egor) [#56702](https://github.com/nodejs/node/pull/56702)
+* \[[`45692e9c7c`](https://github.com/nodejs/node/commit/45692e9c7c)] - **src, deps**: port electron's boringssl workarounds (James M Snell) [#56812](https://github.com/nodejs/node/pull/56812)
+* \[[`a9d80d43cb`](https://github.com/nodejs/node/commit/a9d80d43cb)] - **(SEMVER-MINOR)** **src, quic**: refine more of the quic implementation (James M Snell) [#56328](https://github.com/nodejs/node/pull/56328)
+* \[[`93d0beb6c8`](https://github.com/nodejs/node/commit/93d0beb6c8)] - **src,test**: expand test coverage for urlpattern and fix error (James M Snell) [#56878](https://github.com/nodejs/node/pull/56878)
+* \[[`5a9732e1d0`](https://github.com/nodejs/node/commit/5a9732e1d0)] - **test**: improve timeout duration for debugger events (Yagiz Nizipli) [#56970](https://github.com/nodejs/node/pull/56970)
+* \[[`60c8fc07ff`](https://github.com/nodejs/node/commit/60c8fc07ff)] - **test**: remove unnecessary syscall to cpuinfo (Yagiz Nizipli) [#56968](https://github.com/nodejs/node/pull/56968)
+* \[[`40cdf756e6`](https://github.com/nodejs/node/commit/40cdf756e6)] - **test**: update webstorage wpt (Yagiz Nizipli) [#56963](https://github.com/nodejs/node/pull/56963)
+* \[[`de77371a9e`](https://github.com/nodejs/node/commit/de77371a9e)] - **test**: execute shell directly for refresh() (Yagiz Nizipli) [#55051](https://github.com/nodejs/node/pull/55051)
+* \[[`f4254b8e70`](https://github.com/nodejs/node/commit/f4254b8e70)] - **test**: automatically sync wpt urlpattern tests (Jonas) [#56949](https://github.com/nodejs/node/pull/56949)
+* \[[`a473d3f57a`](https://github.com/nodejs/node/commit/a473d3f57a)] - **test**: update snapshots for amaro v0.3.2 (Marco Ippolito) [#56916](https://github.com/nodejs/node/pull/56916)
+* \[[`abca97f7e2`](https://github.com/nodejs/node/commit/abca97f7e2)] - **test**: change jenkins reporter (Carlos Espa) [#56808](https://github.com/nodejs/node/pull/56808)
+* \[[`7c9fa11127`](https://github.com/nodejs/node/commit/7c9fa11127)] - **test**: fix race condition in test-child-process-bad-stdio (Colin Ihrig) [#56845](https://github.com/nodejs/node/pull/56845)
+* \[[`b8b6e68836`](https://github.com/nodejs/node/commit/b8b6e68836)] - **(SEMVER-MINOR)** **test**: add WPT for URLPattern (Yagiz Nizipli) [#56452](https://github.com/nodejs/node/pull/56452)
+* \[[`b6d3d52e20`](https://github.com/nodejs/node/commit/b6d3d52e20)] - **test**: adjust check to use OpenSSL sec level (Michael Dawson) [#56819](https://github.com/nodejs/node/pull/56819)
+* \[[`3beac87f92`](https://github.com/nodejs/node/commit/3beac87f92)] - **test**: test-crypto-scrypt.js doesn't need internals (Meghan Denny) [#56673](https://github.com/nodejs/node/pull/56673)
+* \[[`3af23a10f3`](https://github.com/nodejs/node/commit/3af23a10f3)] - **test**: set `test-fs-cp` as flaky (Stefan Stojanovic) [#56799](https://github.com/nodejs/node/pull/56799)
+* \[[`1146f48f67`](https://github.com/nodejs/node/commit/1146f48f67)] - **test**: search cctest files (Chengzhong Wu) [#56791](https://github.com/nodejs/node/pull/56791)
+* \[[`86c199b25a`](https://github.com/nodejs/node/commit/86c199b25a)] - **test**: convert test\_encoding\_binding.cc to a JS test (Chengzhong Wu) [#56791](https://github.com/nodejs/node/pull/56791)
+* \[[`bd5484717c`](https://github.com/nodejs/node/commit/bd5484717c)] - **test**: test-crypto-prime.js doesn't need internals (Meghan Denny) [#56675](https://github.com/nodejs/node/pull/56675)
+* \[[`f5f54414e4`](https://github.com/nodejs/node/commit/f5f54414e4)] - **test**: temporary remove resource check from fs read-write (Rafael Gonzaga) [#56789](https://github.com/nodejs/node/pull/56789)
+* \[[`c8bd2ba0ad`](https://github.com/nodejs/node/commit/c8bd2ba0ad)] - **test**: mark test-without-async-context-frame flaky on windows (James M Snell) [#56753](https://github.com/nodejs/node/pull/56753)
+* \[[`2c2e4a4ae0`](https://github.com/nodejs/node/commit/2c2e4a4ae0)] - **test**: remove unnecessary code (Luigi Pinca) [#56784](https://github.com/nodejs/node/pull/56784)
+* \[[`4606a5f79b`](https://github.com/nodejs/node/commit/4606a5f79b)] - **test**: mark `test-esm-loader-hooks-inspect-wait` flaky (Richard Lau) [#56803](https://github.com/nodejs/node/pull/56803)
+* \[[`38c77e3462`](https://github.com/nodejs/node/commit/38c77e3462)] - **test**: update WPT for url to a23788b77a (Node.js GitHub Bot) [#56779](https://github.com/nodejs/node/pull/56779)
+* \[[`50ebd5fd31`](https://github.com/nodejs/node/commit/50ebd5fd31)] - **test**: remove duplicate error reporter from ci (Carlos Espa) [#56739](https://github.com/nodejs/node/pull/56739)
+* \[[`0c3ae25aec`](https://github.com/nodejs/node/commit/0c3ae25aec)] - **test\_runner**: print formatted errors on summary (Pietro Marchini) [#56911](https://github.com/nodejs/node/pull/56911)
+* \[[`b5a8a812fb`](https://github.com/nodejs/node/commit/b5a8a812fb)] - **tools**: bump eslint version (dependabot\[bot]) [#56869](https://github.com/nodejs/node/pull/56869)
+* \[[`e1f86c1b9d`](https://github.com/nodejs/node/commit/e1f86c1b9d)] - **tools**: remove test-asan/ubsan workflows (Michaël Zasso) [#56823](https://github.com/nodejs/node/pull/56823)
+* \[[`405a6678b7`](https://github.com/nodejs/node/commit/405a6678b7)] - **tools**: run macOS test workflow with Xcode 16.1 (Michaël Zasso) [#56831](https://github.com/nodejs/node/pull/56831)
+* \[[`16529c130f`](https://github.com/nodejs/node/commit/16529c130f)] - **tools**: update sccache and sccache-action (Michaël Zasso) [#56815](https://github.com/nodejs/node/pull/56815)
+* \[[`fe004111ea`](https://github.com/nodejs/node/commit/fe004111ea)] - **tools**: fix license-builder for inspector\_protocol (Michaël Zasso) [#56814](https://github.com/nodejs/node/pull/56814)
+* \[[`bc97a90176`](https://github.com/nodejs/node/commit/bc97a90176)] - **(SEMVER-MINOR)** **url**: add URLPattern implementation (Yagiz Nizipli) [#56452](https://github.com/nodejs/node/pull/56452)
+* \[[`77294d8918`](https://github.com/nodejs/node/commit/77294d8918)] - **util**: enforce shouldColorize in styleText array arg (Marco Ippolito) [#56722](https://github.com/nodejs/node/pull/56722)
+* \[[`8e6c191601`](https://github.com/nodejs/node/commit/8e6c191601)] - **zlib**: use modern class syntax for zstd classes (Yagiz Nizipli) [#56965](https://github.com/nodejs/node/pull/56965)
+* \[[`a3ca7f37a2`](https://github.com/nodejs/node/commit/a3ca7f37a2)] - **zlib**: make all zstd functions experimental (Yagiz Nizipli) [#56964](https://github.com/nodejs/node/pull/56964)
+* \[[`4cc7907738`](https://github.com/nodejs/node/commit/4cc7907738)] - **(SEMVER-MINOR)** **zlib**: add zstd support (Jan Krems) [#52100](https://github.com/nodejs/node/pull/52100)
+
+<a id="23.7.0"></a>
+
+## 2025-01-30, Version 23.7.0 (Current), @aduh95
+
+### Notable Changes
+
+* \[[`36dd9ecc41`](https://github.com/nodejs/node/commit/36dd9ecc41)] - **crypto**: update root certificates to NSS 3.107 (Node.js GitHub Bot) [#56566](https://github.com/nodejs/node/pull/56566)
+* \[[`9414d3cbf1`](https://github.com/nodejs/node/commit/9414d3cbf1)] - **(SEMVER-MINOR)** **fs**: allow `exclude` option in globs to accept glob patterns (Daeyeon Jeong) [#56489](https://github.com/nodejs/node/pull/56489)
+* \[[`9c5c3b3115`](https://github.com/nodejs/node/commit/9c5c3b3115)] - **(SEMVER-MINOR)** **module**: add ERR\_UNSUPPORTED\_TYPESCRIPT\_SYNTAX (Marco Ippolito) [#56610](https://github.com/nodejs/node/pull/56610)
+* \[[`1e201fd5fd`](https://github.com/nodejs/node/commit/1e201fd5fd)] - **(SEMVER-MINOR)** **sqlite**: support TypedArray and DataView in `StatementSync` (Alex Yang) [#56385](https://github.com/nodejs/node/pull/56385)
+* \[[`48c813fb67`](https://github.com/nodejs/node/commit/48c813fb67)] - **(SEMVER-MINOR)** **src**: add --disable-sigusr1 to prevent signal i/o thread (Rafael Gonzaga) [#56441](https://github.com/nodejs/node/pull/56441)
+* \[[`cf16123785`](https://github.com/nodejs/node/commit/cf16123785)] - **(SEMVER-MINOR)** **src,worker**: add isInternalWorker (Carlos Espa) [#56469](https://github.com/nodejs/node/pull/56469)
+* \[[`13bdd9c961`](https://github.com/nodejs/node/commit/13bdd9c961)] - **(SEMVER-MINOR)** **test\_runner**: add TestContext.prototype.waitFor() (Colin Ihrig) [#56595](https://github.com/nodejs/node/pull/56595)
+* \[[`00a1943858`](https://github.com/nodejs/node/commit/00a1943858)] - **(SEMVER-MINOR)** **test\_runner**: add t.assert.fileSnapshot() (Colin Ihrig) [#56459](https://github.com/nodejs/node/pull/56459)
+* \[[`3143566045`](https://github.com/nodejs/node/commit/3143566045)] - **(SEMVER-MINOR)** **test\_runner**: add assert.register() API (Colin Ihrig) [#56434](https://github.com/nodejs/node/pull/56434)
+
+### Commits
+
+* \[[`334a3ac7c6`](https://github.com/nodejs/node/commit/334a3ac7c6)] - **assert**: make myers\_diff function more performant (Giovanni Bucci) [#56303](https://github.com/nodejs/node/pull/56303)
+* \[[`eb2bf460b7`](https://github.com/nodejs/node/commit/eb2bf460b7)] - **assert**: make partialDeepStrictEqual work with urls and File prototypes (Giovanni Bucci) [#56231](https://github.com/nodejs/node/pull/56231)
+* \[[`d184453b90`](https://github.com/nodejs/node/commit/d184453b90)] - **assert**: show diff when doing partial comparisons (Giovanni Bucci) [#56211](https://github.com/nodejs/node/pull/56211)
+* \[[`4aa1afd607`](https://github.com/nodejs/node/commit/4aa1afd607)] - **benchmark**: add validateStream to styleText bench (Rafael Gonzaga) [#56556](https://github.com/nodejs/node/pull/56556)
+* \[[`8bbdb1203e`](https://github.com/nodejs/node/commit/8bbdb1203e)] - **child\_process**: fix parsing messages with splitted length field (Maksim Gorkov) [#56106](https://github.com/nodejs/node/pull/56106)
+* \[[`d83d89a08e`](https://github.com/nodejs/node/commit/d83d89a08e)] - **crypto**: add missing return value check (Michael Dawson) [#56615](https://github.com/nodejs/node/pull/56615)
+* \[[`36dd9ecc41`](https://github.com/nodejs/node/commit/36dd9ecc41)] - **crypto**: update root certificates to NSS 3.107 (Node.js GitHub Bot) [#56566](https://github.com/nodejs/node/pull/56566)
+* \[[`3915152c36`](https://github.com/nodejs/node/commit/3915152c36)] - **crypto**: fix checkPrime crash with large buffers (Santiago Gimeno) [#56559](https://github.com/nodejs/node/pull/56559)
+* \[[`c8d1dcb063`](https://github.com/nodejs/node/commit/c8d1dcb063)] - **crypto**: fix warning of ignoring return value (Cheng) [#56527](https://github.com/nodejs/node/pull/56527)
+* \[[`1994eaaf52`](https://github.com/nodejs/node/commit/1994eaaf52)] - **crypto**: make generatePrime/checkPrime interruptible (James M Snell) [#56460](https://github.com/nodejs/node/pull/56460)
+* \[[`5f1ee05390`](https://github.com/nodejs/node/commit/5f1ee05390)] - **deps**: update corepack to 0.31.0 (Node.js GitHub Bot) [#56795](https://github.com/nodejs/node/pull/56795)
+* \[[`9cfac712b8`](https://github.com/nodejs/node/commit/9cfac712b8)] - **deps**: move inspector\_protocol to deps (Chengzhong Wu) [#56649](https://github.com/nodejs/node/pull/56649)
+* \[[`b2ec816a31`](https://github.com/nodejs/node/commit/b2ec816a31)] - **deps**: macro ENODATA is deprecated in libc++ (Cheng) [#56698](https://github.com/nodejs/node/pull/56698)
+* \[[`edd9361499`](https://github.com/nodejs/node/commit/edd9361499)] - **deps**: fixup some minor coverity warnings (James M Snell) [#56612](https://github.com/nodejs/node/pull/56612)
+* \[[`9ffe3ad4b1`](https://github.com/nodejs/node/commit/9ffe3ad4b1)] - **deps**: update libuv to 1.50.0 (Node.js GitHub Bot) [#56616](https://github.com/nodejs/node/pull/56616)
+* \[[`73ad3ca238`](https://github.com/nodejs/node/commit/73ad3ca238)] - **deps**: update amaro to 0.3.0 (Node.js GitHub Bot) [#56568](https://github.com/nodejs/node/pull/56568)
+* \[[`0657f6270a`](https://github.com/nodejs/node/commit/0657f6270a)] - **deps**: update amaro to 0.2.2 (Node.js GitHub Bot) [#56568](https://github.com/nodejs/node/pull/56568)
+* \[[`47fad8cbc0`](https://github.com/nodejs/node/commit/47fad8cbc0)] - **deps**: update simdutf to 6.0.3 (Node.js GitHub Bot) [#56567](https://github.com/nodejs/node/pull/56567)
+* \[[`c9a211ae29`](https://github.com/nodejs/node/commit/c9a211ae29)] - **diagnostics\_channel**: capture console messages (Stephen Belanger) [#56292](https://github.com/nodejs/node/pull/56292)
+* \[[`cf5d2d6598`](https://github.com/nodejs/node/commit/cf5d2d6598)] - **doc**: move anatoli to emeritus (Michael Dawson) [#56592](https://github.com/nodejs/node/pull/56592)
+* \[[`5dd08d10be`](https://github.com/nodejs/node/commit/5dd08d10be)] - **doc**: fix styles of the expandable TOC (Antoine du Hamel) [#56755](https://github.com/nodejs/node/pull/56755)
+* \[[`09fb3adf80`](https://github.com/nodejs/node/commit/09fb3adf80)] - **doc**: add "Skip to content" button (Antoine du Hamel) [#56750](https://github.com/nodejs/node/pull/56750)
+* \[[`ad012ca1f3`](https://github.com/nodejs/node/commit/ad012ca1f3)] - **doc**: improve accessibility of expandable lists (Antoine du Hamel) [#56749](https://github.com/nodejs/node/pull/56749)
+* \[[`38acdb57eb`](https://github.com/nodejs/node/commit/38acdb57eb)] - **doc**: add note regarding commit message trailers (Dario Piotrowicz) [#56736](https://github.com/nodejs/node/pull/56736)
+* \[[`f4a9b134c0`](https://github.com/nodejs/node/commit/f4a9b134c0)] - **doc**: fix typo in example code for util.styleText (Robin Mehner) [#56720](https://github.com/nodejs/node/pull/56720)
+* \[[`8a61aaa734`](https://github.com/nodejs/node/commit/8a61aaa734)] - **doc**: fix inconsistencies in `WeakSet` and `WeakMap` comparison details (Shreyans Pathak) [#56683](https://github.com/nodejs/node/pull/56683)
+* \[[`4ade128184`](https://github.com/nodejs/node/commit/4ade128184)] - **doc**: add RafaelGSS as latest sec release stewards (Rafael Gonzaga) [#56682](https://github.com/nodejs/node/pull/56682)
+* \[[`e1e1200b79`](https://github.com/nodejs/node/commit/e1e1200b79)] - **doc**: clarify cjs/esm diff in `queueMicrotask()` vs `process.nextTick()` (Dario Piotrowicz) [#56659](https://github.com/nodejs/node/pull/56659)
+* \[[`57a7b931fb`](https://github.com/nodejs/node/commit/57a7b931fb)] - **doc**: `WeakSet` and `WeakMap` comparison details (Shreyans Pathak) [#56648](https://github.com/nodejs/node/pull/56648)
+* \[[`56b21489f4`](https://github.com/nodejs/node/commit/56b21489f4)] - **doc**: mention prepare --security (Rafael Gonzaga) [#56617](https://github.com/nodejs/node/pull/56617)
+* \[[`67f39b597a`](https://github.com/nodejs/node/commit/67f39b597a)] - **doc**: tweak info on reposts in ambassador program (Michael Dawson) [#56589](https://github.com/nodejs/node/pull/56589)
+* \[[`6381e0761d`](https://github.com/nodejs/node/commit/6381e0761d)] - **doc**: add type stripping to ambassadors program (Marco Ippolito) [#56598](https://github.com/nodejs/node/pull/56598)
+* \[[`9bd438acd3`](https://github.com/nodejs/node/commit/9bd438acd3)] - **doc**: improve internal documentation on built-in snapshot (Joyee Cheung) [#56505](https://github.com/nodejs/node/pull/56505)
+* \[[`f54118c84a`](https://github.com/nodejs/node/commit/f54118c84a)] - **doc**: correct customization hook types & clarify descriptions (Jacob Smith) [#56454](https://github.com/nodejs/node/pull/56454)
+* \[[`6af5053153`](https://github.com/nodejs/node/commit/6af5053153)] - **doc**: document CLI way to open the nodejs/bluesky PR (Antoine du Hamel) [#56506](https://github.com/nodejs/node/pull/56506)
+* \[[`4a77a9e1eb`](https://github.com/nodejs/node/commit/4a77a9e1eb)] - **doc**: add history info for Permission Model (Antoine du Hamel) [#56707](https://github.com/nodejs/node/pull/56707)
+* \[[`097b8b4889`](https://github.com/nodejs/node/commit/097b8b4889)] - **doc**: add note for features using `InternalWorker` with permission model (Antoine du Hamel) [#56706](https://github.com/nodejs/node/pull/56706)
+* \[[`f600466c73`](https://github.com/nodejs/node/commit/f600466c73)] - **doc**: add section about using npx with permission model (Rafael Gonzaga) [#56539](https://github.com/nodejs/node/pull/56539)
+* \[[`c2d5a0c629`](https://github.com/nodejs/node/commit/c2d5a0c629)] - **doc**: update gcc-version for ubuntu-lts (Kunal Kumar) [#56553](https://github.com/nodejs/node/pull/56553)
+* \[[`202af46793`](https://github.com/nodejs/node/commit/202af46793)] - **doc**: fix parentheses in options (Tobias Nießen) [#56563](https://github.com/nodejs/node/pull/56563)
+* \[[`4e4b0c63d0`](https://github.com/nodejs/node/commit/4e4b0c63d0)] - **doc**: fix location of NO\_COLOR in CLI docs (Colin Ihrig) [#56525](https://github.com/nodejs/node/pull/56525)
+* \[[`92eeeb98a5`](https://github.com/nodejs/node/commit/92eeeb98a5)] - **doc**: include CVE to EOL lines as sec release process (Rafael Gonzaga) [#56520](https://github.com/nodejs/node/pull/56520)
+* \[[`233a6a93a1`](https://github.com/nodejs/node/commit/233a6a93a1)] - **doc**: add esm examples to node:trace\_events (Alfredo González) [#56514](https://github.com/nodejs/node/pull/56514)
+* \[[`d9cff6c73f`](https://github.com/nodejs/node/commit/d9cff6c73f)] - **doc**: reserve NMV 133 for Electron 35 (Keeley Hammond) [#56513](https://github.com/nodejs/node/pull/56513)
+* \[[`6047fd7c5c`](https://github.com/nodejs/node/commit/6047fd7c5c)] - **doc**: add message for Ambassadors to promote (Michael Dawson) [#56235](https://github.com/nodejs/node/pull/56235)
+* \[[`a4045c9488`](https://github.com/nodejs/node/commit/a4045c9488)] - **doc**: allow request for TSC reviews via the GitHub UI (Antoine du Hamel) [#56493](https://github.com/nodejs/node/pull/56493)
+* \[[`dd3f94873e`](https://github.com/nodejs/node/commit/dd3f94873e)] - **esm**: fix jsdoc type refs to `ModuleJobBase` in esm/loader (Jacob Smith) [#56499](https://github.com/nodejs/node/pull/56499)
+* \[[`9414d3cbf1`](https://github.com/nodejs/node/commit/9414d3cbf1)] - **(SEMVER-MINOR)** **fs**: allow `exclude` option in globs to accept glob patterns (Daeyeon Jeong) [#56489](https://github.com/nodejs/node/pull/56489)
+* \[[`4202045673`](https://github.com/nodejs/node/commit/4202045673)] - **http2**: omit server name when HTTP2 host is IP address (islandryu) [#56530](https://github.com/nodejs/node/pull/56530)
+* \[[`f48a562776`](https://github.com/nodejs/node/commit/f48a562776)] - **inspector**: roll inspector\_protocol (Chengzhong Wu) [#56649](https://github.com/nodejs/node/pull/56649)
+* \[[`9a954fbf4a`](https://github.com/nodejs/node/commit/9a954fbf4a)] - **inspector**: add undici http tracking support (Chengzhong Wu) [#56488](https://github.com/nodejs/node/pull/56488)
+* \[[`f185e8a34a`](https://github.com/nodejs/node/commit/f185e8a34a)] - **inspector**: report loadingFinished until the response data is consumed (Chengzhong Wu) [#56372](https://github.com/nodejs/node/pull/56372)
+* \[[`2fb007fdce`](https://github.com/nodejs/node/commit/2fb007fdce)] - **lib**: allow skipping source maps in node\_modules (Chengzhong Wu) [#56639](https://github.com/nodejs/node/pull/56639)
+* \[[`2f69dc2659`](https://github.com/nodejs/node/commit/2f69dc2659)] - **meta**: move one or more collaborators to emeritus (Node.js GitHub Bot) [#56580](https://github.com/nodejs/node/pull/56580)
+* \[[`0d869963e0`](https://github.com/nodejs/node/commit/0d869963e0)] - **meta**: add codeowners of security release document (Rafael Gonzaga) [#56521](https://github.com/nodejs/node/pull/56521)
+* \[[`59510ab819`](https://github.com/nodejs/node/commit/59510ab819)] - **module**: fix bad `require.resolve` with option paths for `.` and `..` (Dario Piotrowicz) [#56735](https://github.com/nodejs/node/pull/56735)
+* \[[`58d2dad67d`](https://github.com/nodejs/node/commit/58d2dad67d)] - **module**: integrate TypeScript into compile cache (Joyee Cheung) [#56629](https://github.com/nodejs/node/pull/56629)
+* \[[`9f99a6acb5`](https://github.com/nodejs/node/commit/9f99a6acb5)] - **module**: use more defensive code when handling SWC errors (Antoine du Hamel) [#56646](https://github.com/nodejs/node/pull/56646)
+* \[[`7347d34053`](https://github.com/nodejs/node/commit/7347d34053)] - **module**: fixing url change in load sync hook chain (Vitalii Akimov) [#56402](https://github.com/nodejs/node/pull/56402)
+* \[[`9c5c3b3115`](https://github.com/nodejs/node/commit/9c5c3b3115)] - **(SEMVER-MINOR)** **module**: add ERR\_UNSUPPORTED\_TYPESCRIPT\_SYNTAX (Marco Ippolito) [#56610](https://github.com/nodejs/node/pull/56610)
+* \[[`afd1f91a1e`](https://github.com/nodejs/node/commit/afd1f91a1e)] - **module**: fix jsdoc for `format` parameter in cjs/loader (pacexy) [#56501](https://github.com/nodejs/node/pull/56501)
+* \[[`86d783fa51`](https://github.com/nodejs/node/commit/86d783fa51)] - **module**: rethrow amaro error message (Marco Ippolito) [#56568](https://github.com/nodejs/node/pull/56568)
+* \[[`7b6df4a97a`](https://github.com/nodejs/node/commit/7b6df4a97a)] - **process**: fix symbol key and mark experimental new `node:process` methods (Antoine du Hamel) [#56517](https://github.com/nodejs/node/pull/56517)
+* \[[`21362cc4f4`](https://github.com/nodejs/node/commit/21362cc4f4)] - **punycode**: limit deprecation warning (Colin Ihrig) [#56632](https://github.com/nodejs/node/pull/56632)
+* \[[`93f60a1c15`](https://github.com/nodejs/node/commit/93f60a1c15)] - **sqlite**: disable memstatus APIs at build time (Colin Ihrig) [#56541](https://github.com/nodejs/node/pull/56541)
+* \[[`1e201fd5fd`](https://github.com/nodejs/node/commit/1e201fd5fd)] - **(SEMVER-MINOR)** **sqlite**: support TypedArray and DataView in `StatementSync` (Alex Yang) [#56385](https://github.com/nodejs/node/pull/56385)
+* \[[`3aca628a11`](https://github.com/nodejs/node/commit/3aca628a11)] - **sqlite**: enable SQL math functions (Colin Ihrig) [#56447](https://github.com/nodejs/node/pull/56447)
+* \[[`575251ae6a`](https://github.com/nodejs/node/commit/575251ae6a)] - **src**: add nullptr handling from X509\_STORE\_new() (Burkov Egor) [#56700](https://github.com/nodejs/node/pull/56700)
+* \[[`8fb03d8f43`](https://github.com/nodejs/node/commit/8fb03d8f43)] - **src**: move more crypto to ncrypto (James M Snell) [#56653](https://github.com/nodejs/node/pull/56653)
+* \[[`55a0135261`](https://github.com/nodejs/node/commit/55a0135261)] - **src**: add default value for RSACipherConfig mode field (Burkov Egor) [#56701](https://github.com/nodejs/node/pull/56701)
+* \[[`83c56da328`](https://github.com/nodejs/node/commit/83c56da328)] - **src**: fix build with GCC 15 (tjuhaszrh) [#56740](https://github.com/nodejs/node/pull/56740)
+* \[[`872d68d87c`](https://github.com/nodejs/node/commit/872d68d87c)] - **src**: fix to generate path from wchar\_t via wstring (yamachu) [#56696](https://github.com/nodejs/node/pull/56696)
+* \[[`2b6a82dcea`](https://github.com/nodejs/node/commit/2b6a82dcea)] - **src**: replace NoArrayBufferZeroFillScope with v8 option (James M Snell) [#56658](https://github.com/nodejs/node/pull/56658)
+* \[[`a5f9023297`](https://github.com/nodejs/node/commit/a5f9023297)] - **src**: initialize FSReqWrapSync in path that uses it (Michaël Zasso) [#56613](https://github.com/nodejs/node/pull/56613)
+* \[[`90f70ed8dd`](https://github.com/nodejs/node/commit/90f70ed8dd)] - **src**: use cppgc to manage ContextifyContext (Joyee Cheung) [#56522](https://github.com/nodejs/node/pull/56522)
+* \[[`0b1ac9653e`](https://github.com/nodejs/node/commit/0b1ac9653e)] - **src**: handle duplicate paths granted (Rafael Gonzaga) [#56591](https://github.com/nodejs/node/pull/56591)
+* \[[`33f5345002`](https://github.com/nodejs/node/commit/33f5345002)] - **src**: update ECKeyPointer in ncrypto (James M Snell) [#56526](https://github.com/nodejs/node/pull/56526)
+* \[[`c7b95fcf95`](https://github.com/nodejs/node/commit/c7b95fcf95)] - **src**: update ECPointPointer in ncrypto (James M Snell) [#56526](https://github.com/nodejs/node/pull/56526)
+* \[[`c008b15108`](https://github.com/nodejs/node/commit/c008b15108)] - **src**: update ECGroupPointer in ncrypto (James M Snell) [#56526](https://github.com/nodejs/node/pull/56526)
+* \[[`5673dc7de7`](https://github.com/nodejs/node/commit/5673dc7de7)] - **src**: update ECDASSigPointer implementation in ncrypto (James M Snell) [#56526](https://github.com/nodejs/node/pull/56526)
+* \[[`87ba48b2c6`](https://github.com/nodejs/node/commit/87ba48b2c6)] - **src**: cleaning up more crypto internals for ncrypto (James M Snell) [#56526](https://github.com/nodejs/node/pull/56526)
+* \[[`48c813fb67`](https://github.com/nodejs/node/commit/48c813fb67)] - **(SEMVER-MINOR)** **src**: add --disable-sigusr1 to prevent signal i/o thread (Rafael Gonzaga) [#56441](https://github.com/nodejs/node/pull/56441)
+* \[[`50c65eed78`](https://github.com/nodejs/node/commit/50c65eed78)] - **src**: fix undefined script name in error source (Chengzhong Wu) [#56502](https://github.com/nodejs/node/pull/56502)
+* \[[`b3c66d2493`](https://github.com/nodejs/node/commit/b3c66d2493)] - **src**: refactor --trace-env to reuse option selection and handling (Joyee Cheung) [#56293](https://github.com/nodejs/node/pull/56293)
+* \[[`17d59efe3c`](https://github.com/nodejs/node/commit/17d59efe3c)] - **src**: minor cleanups on OneByteString usage (James M Snell) [#56482](https://github.com/nodejs/node/pull/56482)
+* \[[`3e6e0106f6`](https://github.com/nodejs/node/commit/3e6e0106f6)] - **src**: move more crypto impl detail to ncrypto dep (James M Snell) [#56421](https://github.com/nodejs/node/pull/56421)
+* \[[`5e1ddd5d4c`](https://github.com/nodejs/node/commit/5e1ddd5d4c)] - **src**: fixup more ToLocalChecked uses in node\_file (James M Snell) [#56484](https://github.com/nodejs/node/pull/56484)
+* \[[`aa3fd2f58f`](https://github.com/nodejs/node/commit/aa3fd2f58f)] - **src**: make some minor ToLocalChecked cleanups (James M Snell) [#56483](https://github.com/nodejs/node/pull/56483)
+* \[[`7dd8165b0b`](https://github.com/nodejs/node/commit/7dd8165b0b)] - **src**: lock the thread properly in snapshot builder (Joyee Cheung) [#56327](https://github.com/nodejs/node/pull/56327)
+* \[[`edafab7248`](https://github.com/nodejs/node/commit/edafab7248)] - **src**: drain platform tasks before creating startup snapshot (Chengzhong Wu) [#56403](https://github.com/nodejs/node/pull/56403)
+* \[[`e1887d2c58`](https://github.com/nodejs/node/commit/e1887d2c58)] - **src**: use LocalVector in more places (James M Snell) [#56457](https://github.com/nodejs/node/pull/56457)
+* \[[`cf16123785`](https://github.com/nodejs/node/commit/cf16123785)] - **(SEMVER-MINOR)** **src,worker**: add isInternalWorker (Carlos Espa) [#56469](https://github.com/nodejs/node/pull/56469)
+* \[[`df78515664`](https://github.com/nodejs/node/commit/df78515664)] - **stream**: fix typo in ReadableStreamBYOBReader.readIntoRequests (Mattias Buelens) [#56560](https://github.com/nodejs/node/pull/56560)
+* \[[`4ff79fb22a`](https://github.com/nodejs/node/commit/4ff79fb22a)] - **test**: reduce number of written chunks (Luigi Pinca) [#56757](https://github.com/nodejs/node/pull/56757)
+* \[[`2e7b7b7674`](https://github.com/nodejs/node/commit/2e7b7b7674)] - **test**: fix invalid common.mustSucceed() usage (Luigi Pinca) [#56756](https://github.com/nodejs/node/pull/56756)
+* \[[`0af368ce5e`](https://github.com/nodejs/node/commit/0af368ce5e)] - **test**: use strict mode in global setters test (Rich Trott) [#56742](https://github.com/nodejs/node/pull/56742)
+* \[[`e49f3e944c`](https://github.com/nodejs/node/commit/e49f3e944c)] - **test**: cleanup and simplify test-crypto-aes-wrap (James M Snell) [#56748](https://github.com/nodejs/node/pull/56748)
+* \[[`85f7bbf4e4`](https://github.com/nodejs/node/commit/85f7bbf4e4)] - **test**: do not use common.isMainThread (Luigi Pinca) [#56768](https://github.com/nodejs/node/pull/56768)
+* \[[`36b02bf1b1`](https://github.com/nodejs/node/commit/36b02bf1b1)] - **test**: make some requires lazy in common/index (James M Snell) [#56715](https://github.com/nodejs/node/pull/56715)
+* \[[`bcb35c3fb7`](https://github.com/nodejs/node/commit/bcb35c3fb7)] - **test**: add test that uses multibyte for path and resolves modules (yamachu) [#56696](https://github.com/nodejs/node/pull/56696)
+* \[[`917f98b29c`](https://github.com/nodejs/node/commit/917f98b29c)] - **test**: replace more uses of `global` with `globalThis` (James M Snell) [#56712](https://github.com/nodejs/node/pull/56712)
+* \[[`bf34a49206`](https://github.com/nodejs/node/commit/bf34a49206)] - **test**: make common/index slightly less node.js specific (James M Snell) [#56712](https://github.com/nodejs/node/pull/56712)
+* \[[`ef2ed71389`](https://github.com/nodejs/node/commit/ef2ed71389)] - **test**: rely less on duplicative common test harness utilities (James M Snell) [#56712](https://github.com/nodejs/node/pull/56712)
+* \[[`e654c8b84a`](https://github.com/nodejs/node/commit/e654c8b84a)] - **test**: simplify common/index.js (James M Snell) [#56712](https://github.com/nodejs/node/pull/56712)
+* \[[`a62345e73b`](https://github.com/nodejs/node/commit/a62345e73b)] - **test**: move hasMultiLocalhost to common/net (James M Snell) [#56716](https://github.com/nodejs/node/pull/56716)
+* \[[`6edf04ee5e`](https://github.com/nodejs/node/commit/6edf04ee5e)] - **test**: move crypto related common utilities in common/crypto (James M Snell) [#56714](https://github.com/nodejs/node/pull/56714)
+* \[[`c7a132229f`](https://github.com/nodejs/node/commit/c7a132229f)] - **test**: add missing test for env file (Jonas) [#56642](https://github.com/nodejs/node/pull/56642)
+* \[[`2a219eddf6`](https://github.com/nodejs/node/commit/2a219eddf6)] - **test**: enforce strict mode in test-zlib-const (Rich Trott) [#56689](https://github.com/nodejs/node/pull/56689)
+* \[[`f885496d9c`](https://github.com/nodejs/node/commit/f885496d9c)] - **test**: fix localization data for ICU 74.2 (Antoine du Hamel) [#56661](https://github.com/nodejs/node/pull/56661)
+* \[[`eb3148fb5c`](https://github.com/nodejs/node/commit/eb3148fb5c)] - **test**: use --permission instead of --experimental-permission (Rafael Gonzaga) [#56685](https://github.com/nodejs/node/pull/56685)
+* \[[`86d7ba09c4`](https://github.com/nodejs/node/commit/86d7ba09c4)] - **test**: test-stream-compose.js doesn't need internals (Meghan Denny) [#56619](https://github.com/nodejs/node/pull/56619)
+* \[[`676276889e`](https://github.com/nodejs/node/commit/676276889e)] - **test**: add maxCount and gcOptions to gcUntil() (Joyee Cheung) [#56522](https://github.com/nodejs/node/pull/56522)
+* \[[`5b7a012144`](https://github.com/nodejs/node/commit/5b7a012144)] - **test**: add line break at end of file (Rafael Gonzaga) [#56588](https://github.com/nodejs/node/pull/56588)
+* \[[`27cfec619f`](https://github.com/nodejs/node/commit/27cfec619f)] - **test**: mark test-worker-prof as flaky on smartos (Joyee Cheung) [#56583](https://github.com/nodejs/node/pull/56583)
+* \[[`7e58da68c1`](https://github.com/nodejs/node/commit/7e58da68c1)] - **test**: update ts eval snapshots (Marco Ippolito) [#56568](https://github.com/nodejs/node/pull/56568)
+* \[[`b1c54439ae`](https://github.com/nodejs/node/commit/b1c54439ae)] - **test**: update test-child-process-bad-stdio to use node:test (Colin Ihrig) [#56562](https://github.com/nodejs/node/pull/56562)
+* \[[`0d772a963e`](https://github.com/nodejs/node/commit/0d772a963e)] - **test**: disable openssl 3.4.0 incompatible tests (Jelle van der Waa) [#56160](https://github.com/nodejs/node/pull/56160)
+* \[[`6fa6d699ff`](https://github.com/nodejs/node/commit/6fa6d699ff)] - **test**: make test-crypto-hash compatible with OpenSSL > 3.4.0 (Jelle van der Waa) [#56160](https://github.com/nodejs/node/pull/56160)
+* \[[`90e12f2945`](https://github.com/nodejs/node/commit/90e12f2945)] - **test**: clarify fork inherit permission flags (Rafael Gonzaga) [#56523](https://github.com/nodejs/node/pull/56523)
+* \[[`323f96f7b3`](https://github.com/nodejs/node/commit/323f96f7b3)] - **test**: add error only reporter for node:test (Carlos Espa) [#56438](https://github.com/nodejs/node/pull/56438)
+* \[[`cbbcaf9108`](https://github.com/nodejs/node/commit/cbbcaf9108)] - **test**: mark test-http-server-request-timeouts-mixed as flaky (Joyee Cheung) [#56503](https://github.com/nodejs/node/pull/56503)
+* \[[`295db19ba2`](https://github.com/nodejs/node/commit/295db19ba2)] - **test**: update error code in tls-psk-circuit for for OpenSSL 3.4 (sebastianas) [#56420](https://github.com/nodejs/node/pull/56420)
+* \[[`f7563780a6`](https://github.com/nodejs/node/commit/f7563780a6)] - **test**: update compiled sqlite tests to match other tests (Colin Ihrig) [#56446](https://github.com/nodejs/node/pull/56446)
+* \[[`8feb2737e7`](https://github.com/nodejs/node/commit/8feb2737e7)] - **test**: add initial test426 coverage (Chengzhong Wu) [#56436](https://github.com/nodejs/node/pull/56436)
+* \[[`b9cd7895c0`](https://github.com/nodejs/node/commit/b9cd7895c0)] - **test**: update test-set-http-max-http-headers to use node:test (Colin Ihrig) [#56439](https://github.com/nodejs/node/pull/56439)
+* \[[`332ce548cb`](https://github.com/nodejs/node/commit/332ce548cb)] - **test**: update test-child-process-windows-hide to use node:test (Colin Ihrig) [#56437](https://github.com/nodejs/node/pull/56437)
+* \[[`e2668c0e00`](https://github.com/nodejs/node/commit/e2668c0e00)] - **test\_runner**: print failing assertion only once with spec reporter (Pietro Marchini) [#56662](https://github.com/nodejs/node/pull/56662)
+* \[[`f97cd5b02b`](https://github.com/nodejs/node/commit/f97cd5b02b)] - **test\_runner**: remove unused errors (Pietro Marchini) [#56607](https://github.com/nodejs/node/pull/56607)
+* \[[`13bdd9c961`](https://github.com/nodejs/node/commit/13bdd9c961)] - **(SEMVER-MINOR)** **test\_runner**: add TestContext.prototype.waitFor() (Colin Ihrig) [#56595](https://github.com/nodejs/node/pull/56595)
+* \[[`00a1943858`](https://github.com/nodejs/node/commit/00a1943858)] - **(SEMVER-MINOR)** **test\_runner**: add t.assert.fileSnapshot() (Colin Ihrig) [#56459](https://github.com/nodejs/node/pull/56459)
+* \[[`c4979ebfb2`](https://github.com/nodejs/node/commit/c4979ebfb2)] - **test\_runner**: run single test file benchmark (Pietro Marchini) [#56479](https://github.com/nodejs/node/pull/56479)
+* \[[`839a06e908`](https://github.com/nodejs/node/commit/839a06e908)] - **test\_runner**: differentiate test types in enqueue dequeue events (Eddie Abbondanzio) [#54049](https://github.com/nodejs/node/pull/54049)
+* \[[`3143566045`](https://github.com/nodejs/node/commit/3143566045)] - **(SEMVER-MINOR)** **test\_runner**: add assert.register() API (Colin Ihrig) [#56434](https://github.com/nodejs/node/pull/56434)
+* \[[`3aa864904f`](https://github.com/nodejs/node/commit/3aa864904f)] - **test\_runner**: finish marking snapshot testing as stable (Colin Ihrig) [#56425](https://github.com/nodejs/node/pull/56425)
+* \[[`b7b0768cda`](https://github.com/nodejs/node/commit/b7b0768cda)] - **tls**: fix error stack conversion in cryptoErrorListToException() (Joyee Cheung) [#56554](https://github.com/nodejs/node/pull/56554)
+* \[[`8f59f5ba47`](https://github.com/nodejs/node/commit/8f59f5ba47)] - **tools**: update doc to new version (Node.js GitHub Bot) [#56259](https://github.com/nodejs/node/pull/56259)
+* \[[`ebf4527730`](https://github.com/nodejs/node/commit/ebf4527730)] - **tools**: update inspector\_protocol roller (Chengzhong Wu) [#56649](https://github.com/nodejs/node/pull/56649)
+* \[[`649cf0c0f6`](https://github.com/nodejs/node/commit/649cf0c0f6)] - **tools**: do not throw on missing `create-release-proposal.sh` (Antoine du Hamel) [#56704](https://github.com/nodejs/node/pull/56704)
+* \[[`69cb44e315`](https://github.com/nodejs/node/commit/69cb44e315)] - **tools**: fix tools-deps-update (Daniel Lemire) [#56684](https://github.com/nodejs/node/pull/56684)
+* \[[`02f36ca11b`](https://github.com/nodejs/node/commit/02f36ca11b)] - **tools**: do not throw on missing `create-release-proposal.sh` (Antoine du Hamel) [#56695](https://github.com/nodejs/node/pull/56695)
+* \[[`bcc1c65066`](https://github.com/nodejs/node/commit/bcc1c65066)] - **tools**: fix permissions in `lint-release-proposal` workflow (Antoine du Hamel) [#56614](https://github.com/nodejs/node/pull/56614)
+* \[[`ab4cfef600`](https://github.com/nodejs/node/commit/ab4cfef600)] - **tools**: remove github reporter (Carlos Espa) [#56468](https://github.com/nodejs/node/pull/56468)
+* \[[`477e674a2a`](https://github.com/nodejs/node/commit/477e674a2a)] - **tools**: edit `create-release-proposal` workflow (Antoine du Hamel) [#56540](https://github.com/nodejs/node/pull/56540)
+* \[[`5f6785b1cb`](https://github.com/nodejs/node/commit/5f6785b1cb)] - **tools**: validate commit list as part of `lint-release-commit` (Antoine du Hamel) [#56291](https://github.com/nodejs/node/pull/56291)
+* \[[`2a0fbd8731`](https://github.com/nodejs/node/commit/2a0fbd8731)] - **tools**: fix loong64 build failed (Xiao-Tao) [#56466](https://github.com/nodejs/node/pull/56466)
+* \[[`aea088f79e`](https://github.com/nodejs/node/commit/aea088f79e)] - **tools**: disable unneeded rule ignoring in Python linting (Rich Trott) [#56429](https://github.com/nodejs/node/pull/56429)
+* \[[`7a0dd2d04f`](https://github.com/nodejs/node/commit/7a0dd2d04f)] - **tools**: use a configurable value for number of open dependabot PRs (Antoine du Hamel) [#56427](https://github.com/nodejs/node/pull/56427)
+* \[[`c249c9715a`](https://github.com/nodejs/node/commit/c249c9715a)] - **tools**: bump the eslint group in /tools/eslint with 4 updates (dependabot\[bot]) [#56426](https://github.com/nodejs/node/pull/56426)
+* \[[`a9d332a16f`](https://github.com/nodejs/node/commit/a9d332a16f)] - **util**: inspect: do not crash on an Error stack that contains a Symbol (Jordan Harband) [#56573](https://github.com/nodejs/node/pull/56573)
+* \[[`6a16012fd7`](https://github.com/nodejs/node/commit/6a16012fd7)] - **util**: inspect: do not crash on an Error with a regex `name` (Jordan Harband) [#56574](https://github.com/nodejs/node/pull/56574)
+* \[[`c7f16192f4`](https://github.com/nodejs/node/commit/c7f16192f4)] - **util**: rename CallSite.column to columnNumber (Chengzhong Wu) [#56584](https://github.com/nodejs/node/pull/56584)
+* \[[`e652781934`](https://github.com/nodejs/node/commit/e652781934)] - **util**: do not crash on inspecting function with `Symbol` name (Jordan Harband) [#56572](https://github.com/nodejs/node/pull/56572)
+* \[[`d066acfcf9`](https://github.com/nodejs/node/commit/d066acfcf9)] - **util**: expose CallSite.scriptId (Chengzhong Wu) [#56551](https://github.com/nodejs/node/pull/56551)
+* \[[`e1b0f44d19`](https://github.com/nodejs/node/commit/e1b0f44d19)] - **watch**: reload env file for --env-file-if-exists (Jonas) [#56643](https://github.com/nodejs/node/pull/56643)
+* \[[`538e19489f`](https://github.com/nodejs/node/commit/538e19489f)] - **worker**: refactor stdio to improve performance (Matteo Collina) [#56630](https://github.com/nodejs/node/pull/56630)
+* \[[`aab53e6965`](https://github.com/nodejs/node/commit/aab53e6965)] - **worker**: flush stdout and stderr on exit (Matteo Collina) [#56428](https://github.com/nodejs/node/pull/56428)
+
+<a id="23.6.1"></a>
+
+## 2025-01-21, Version 23.6.1 (Current), @RafaelGSS
+
+This is a security release.
+
+### Notable Changes
+
+* CVE-2025-23083 - src,loader,permission: throw on InternalWorker use when permission model is enabled (High)
+* CVE-2025-23085 - src: fix HTTP2 mem leak on premature close and ERR\_PROTO (Medium)
+* CVE-2025-23084 - path: fix path traversal in normalize() on Windows (Medium)
+
+Dependency update:
+
+* CVE-2025-22150 - Use of Insufficiently Random Values in undici fetch() (Medium)
+
+### Commits
+
+* \[[`f2ad4d3af8`](https://github.com/nodejs/node/commit/f2ad4d3af8)] - **(CVE-2025-22150)** **deps**: update undici to v6.21.1 (Matteo Collina) [nodejs-private/node-private#654](https://github.com/nodejs-private/node-private/pull/654)
+* \[[`0afc6f9600`](https://github.com/nodejs/node/commit/0afc6f9600)] - **(CVE-2025-23084)** **path**: fix path traversal in normalize() on Windows (RafaelGSS) [nodejs-private/node-private#555](https://github.com/nodejs-private/node-private/pull/555)
+* \[[`3c7686163e`](https://github.com/nodejs/node/commit/3c7686163e)] - **(CVE-2025-23085)** **src**: fix HTTP2 mem leak on premature close and ERR\_PROTO (RafaelGSS) [nodejs-private/node-private#650](https://github.com/nodejs-private/node-private/pull/650)
+* \[[`51938f023a`](https://github.com/nodejs/node/commit/51938f023a)] - **(CVE-2025-23083)** **src,loader,permission**: throw on InternalWorker use (RafaelGSS) [nodejs-private/node-private#629](https://github.com/nodejs-private/node-private/pull/629)
 
 <a id="23.6.0"></a>
 

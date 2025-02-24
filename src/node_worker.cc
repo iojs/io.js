@@ -495,11 +495,9 @@ Worker::~Worker() {
 
 void Worker::New(const FunctionCallbackInfo<Value>& args) {
   Environment* env = Environment::GetCurrent(args);
+  THROW_IF_INSUFFICIENT_PERMISSIONS(
+      env, permission::PermissionScope::kWorkerThreads, "");
   bool is_internal = args[5]->IsTrue();
-  if (!is_internal) {
-    THROW_IF_INSUFFICIENT_PERMISSIONS(
-        env, permission::PermissionScope::kWorkerThreads, "");
-  }
   Isolate* isolate = args.GetIsolate();
 
   CHECK(args.IsConstructCall());
@@ -742,6 +740,7 @@ void Worker::StartThread(const FunctionCallbackInfo<Value>& args) {
     Worker* w = static_cast<Worker*>(arg);
     const uintptr_t stack_top = reinterpret_cast<uintptr_t>(&arg);
 
+    uv_thread_setname(w->name_.c_str());
     // Leave a few kilobytes just to make sure we're within limits and have
     // some space to do work in C++ land.
     w->stack_base_ = stack_top - (w->stack_size_ - kStackBufferSize);

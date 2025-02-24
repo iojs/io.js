@@ -2095,11 +2095,15 @@ does not consist of exactly two elements.
 added:
  - v23.0.0
  - v22.10.0
+changes:
+    - version:
+      - v23.7.0
+      - v22.14.0
+      pr-url: https://github.com/nodejs/node/pull/56610
+      description: This error is no longer thrown on valid yet unsupported syntax.
 -->
 
-The provided TypeScript syntax is not valid or unsupported.
-This could happen when using TypeScript syntax that requires
-transformation with [type-stripping][].
+The provided TypeScript syntax is not valid.
 
 <a id="ERR_INVALID_URI"></a>
 
@@ -2115,6 +2119,13 @@ An invalid URL was passed to the [WHATWG][WHATWG URL API] [`URL`
 constructor][`new URL(input)`] or the legacy [`url.parse()`][] to be parsed.
 The thrown error object typically has an additional property `'input'` that
 contains the URL that failed to parse.
+
+<a id="ERR_INVALID_URL_PATTERN"></a>
+
+### `ERR_INVALID_URL_PATTERN`
+
+An invalid URLPattern was passed to the [WHATWG][WHATWG URL API] \[`URLPattern`
+constructor]\[`new URLPattern(input)`] to be parsed.
 
 <a id="ERR_INVALID_URL_SCHEME"></a>
 
@@ -2373,6 +2384,16 @@ added: v15.0.0
 
 An operation failed. This is typically used to signal the general failure
 of an asynchronous operation.
+
+<a id="ERR_OPTIONS_BEFORE_BOOTSTRAPPING"></a>
+
+### `ERR_OPTIONS_BEFORE_BOOTSTRAPPING`
+
+<!-- YAML
+added: REPLACEME
+-->
+
+An attempt was made to get options before the bootstrapping was completed.
 
 <a id="ERR_OUT_OF_RANGE"></a>
 
@@ -2829,25 +2850,6 @@ An unspecified or non-specific system error has occurred within the Node.js
 process. The error object will have an `err.info` object property with
 additional details.
 
-<a id="ERR_TAP_LEXER_ERROR"></a>
-
-### `ERR_TAP_LEXER_ERROR`
-
-An error representing a failing lexer state.
-
-<a id="ERR_TAP_PARSER_ERROR"></a>
-
-### `ERR_TAP_PARSER_ERROR`
-
-An error representing a failing parser state. Additional information about
-the token causing the error is available via the `cause` property.
-
-<a id="ERR_TAP_VALIDATION_ERROR"></a>
-
-### `ERR_TAP_VALIDATION_ERROR`
-
-This error represents a failed TAP validation.
-
 <a id="ERR_TEST_FAILURE"></a>
 
 ### `ERR_TEST_FAILURE`
@@ -3135,6 +3137,20 @@ try {
 }
 ```
 
+<a id="ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX"></a>
+
+### `ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX`
+
+<!-- YAML
+added:
+  - v23.7.0
+  - v22.14.0
+-->
+
+The provided TypeScript syntax is unsupported.
+This could happen when using TypeScript syntax that requires
+transformation with [type-stripping][].
+
 <a id="ERR_USE_AFTER_CLOSE"></a>
 
 ### `ERR_USE_AFTER_CLOSE`
@@ -3331,6 +3347,12 @@ The requested functionality is not supported in worker threads.
 ### `ERR_ZLIB_INITIALIZATION_FAILED`
 
 Creation of a [`zlib`][] object failed due to incorrect configuration.
+
+<a id="ERR_ZSTD_INVALID_PARAM"></a>
+
+### `ERR_ZSTD_INVALID_PARAM`
+
+An invalid parameter key was passed during construction of a Zstd stream.
 
 <a id="HPE_CHUNK_EXTENSIONS_OVERFLOW"></a>
 
@@ -3882,6 +3904,25 @@ removed: v10.0.0
 
 Used when an attempt is made to use a readable stream that has not implemented
 [`readable._read()`][].
+
+<a id="ERR_TAP_LEXER_ERROR"></a>
+
+### `ERR_TAP_LEXER_ERROR`
+
+An error representing a failing lexer state.
+
+<a id="ERR_TAP_PARSER_ERROR"></a>
+
+### `ERR_TAP_PARSER_ERROR`
+
+An error representing a failing parser state. Additional information about
+the token causing the error is available via the `cause` property.
+
+<a id="ERR_TAP_VALIDATION_ERROR"></a>
+
+### `ERR_TAP_VALIDATION_ERROR`
+
+This error represents a failed TAP validation.
 
 <a id="ERR_TLS_RENEGOTIATION_FAILED"></a>
 

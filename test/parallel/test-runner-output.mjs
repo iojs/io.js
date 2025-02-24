@@ -199,10 +199,6 @@ const tests = [
     name: 'test-runner/output/unfinished-suite-async-error.js',
     flags: ['--test-reporter=tap'],
   },
-  {
-    name: 'test-runner/output/unresolved_promise.js',
-    flags: ['--test-reporter=tap'],
-  },
   { name: 'test-runner/output/default_output.js', transform: specTransform, tty: true },
   {
     name: 'test-runner/output/arbitrary-output.js',
@@ -238,6 +234,14 @@ const tests = [
   {
     name: 'test-runner/output/test-runner-plan.js',
     flags: ['--test-reporter=tap'],
+  },
+  {
+    name: 'test-runner/output/test-runner-watch-spec.mjs',
+    transform: specTransform,
+  },
+  {
+    name: 'test-runner/output/test-runner-plan-timeout.js',
+    flags: ['--test-reporter=tap', '--test-force-exit'],
   },
   process.features.inspector ? {
     name: 'test-runner/output/coverage_failure.js',
