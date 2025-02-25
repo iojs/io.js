@@ -2611,6 +2611,9 @@
           ['OS == "aix"', {
             'defines': ['HWY_BROKEN_EMU128=0',],
           }],
+          ['v8_target_arch=="arm" and arm_version==7', {
+            'defines': ['HWY_BROKEN_EMU128=0',],
+          }],
         ],
       },
       'include_dirs': [
