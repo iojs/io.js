@@ -586,13 +586,13 @@ Disable the ability of starting a debugging session by sending a
 
 ### `--disable-warning=code-or-type`
 
-> Stability: 1.1 - Active development
-
 <!-- YAML
 added:
   - v21.3.0
   - v20.11.0
 -->
+
+> Stability: 1.1 - Active development
 
 Disable specific process warnings by `code` or `type`.
 
@@ -795,18 +795,16 @@ node --entry-url 'data:text/javascript,console.log("Hello")'
 
 ### `--env-file-if-exists=config`
 
-> Stability: 1.1 - Active development
-
 <!-- YAML
 added: v22.9.0
 -->
+
+> Stability: 1.1 - Active development
 
 Behavior is the same as [`--env-file`][], but an error is not thrown if the file
 does not exist.
 
 ### `--env-file=config`
-
-> Stability: 1.1 - Active development
 
 <!-- YAML
 added: v20.6.0
@@ -817,6 +815,8 @@ changes:
     pr-url: https://github.com/nodejs/node/pull/51289
     description: Add support to multi-line values.
 -->
+
+> Stability: 1.1 - Active development
 
 Loads environment variables from a file relative to the current directory,
 making them available to applications on `process.env`. The [environment
@@ -997,14 +997,6 @@ added:
 If the ES module being `require()`'d contains top-level `await`, this flag
 allows Node.js to evaluate the module, try to locate the
 top-level awaits, and print their location to help users find them.
-
-### `--experimental-quic`
-
-<!--
-added: v23.8.0
--->
-
-Enables the experimental `node:quic` built-in module.
 
 ### `--experimental-require-module`
 
@@ -2838,12 +2830,15 @@ The following values are valid for `mode`:
 ### `--use-system-ca`
 
 Node.js uses the trusted CA certificates present in the system store along with
-the `--use-bundled-ca`, `--use-openssl-ca` options.
+the `--use-bundled-ca` option and the `NODE_EXTRA_CA_CERTS` environment variable.
+On platforms other than Windows and macOS, this loads certificates from the directory
+and file trusted by OpenSSL, similar to `--use-openssl-ca`, with the difference being
+that it caches the certificates after first load.
 
-This option is only supported on Windows and macOS, and the certificate trust policy
-is planned to follow [Chromium's policy for locally trusted certificates][]:
+On Windows and macOS, the certificate trust policy is planned to follow
+[Chromium's policy for locally trusted certificates][]:
 
-On macOS, the following certifcates are trusted:
+On macOS, the following settings are respected:
 
 * Default and System Keychains
   * Trust:
@@ -2853,8 +2848,8 @@ On macOS, the following certifcates are trusted:
     * Any certificate where the “When using this certificate” flag is set to “Never Trust” or
     * Any certificate where the “Secure Sockets Layer (SSL)” flag is set to “Never Trust.”
 
-On Windows, the following certificates are currently trusted (unlike
-Chromium's policy, distrust is not currently supported):
+On Windows, the following settings are respected (unlike Chromium's policy, distrust
+and intermediate CA are not currently supported):
 
 * Local Machine (accessed via `certlm.msc`)
   * Trust:
@@ -2869,8 +2864,19 @@ Chromium's policy, distrust is not currently supported):
     * Trusted Root Certification Authorities
     * Enterprise Trust -> Group Policy -> Trusted Root Certification Authorities
 
-On any supported system, Node.js would check that the certificate's key usage and extended key
-usage are consistent with TLS use cases before using it for server authentication.
+On Windows and macOS, Node.js would check that the user settings for the certificates
+do not forbid them for TLS server authentication before using them.
+
+On other systems, Node.js loads certificates from the default certificate file
+(typically `/etc/ssl/cert.pem`) and default certificate directory (typically
+`/etc/ssl/certs`) that the version of OpenSSL that Node.js links to respects.
+This typically works with the convention on major Linux distributions and other
+Unix-like systems. If the overriding OpenSSL environment variables
+(typically `SSL_CERT_FILE` and `SSL_CERT_DIR`, depending on the configuration
+of the OpenSSL that Node.js links to) are set, the specified paths will be used to load
+certificates instead. These environment variables can be used as workarounds
+if the conventional paths used by the version of OpenSSL Node.js links to are
+not consistent with the system configuration that the users have for some reason.
 
 ### `--v8-options`
 
@@ -3140,6 +3146,10 @@ one is included in the list below.
 * `--allow-wasi`
 * `--allow-worker`
 * `--conditions`, `-C`
+* `--cpu-prof-dir`
+* `--cpu-prof-interval`
+* `--cpu-prof-name`
+* `--cpu-prof`
 * `--diagnostic-dir`
 * `--disable-proto`
 * `--disable-sigusr1`
@@ -3161,7 +3171,6 @@ one is included in the list below.
 * `--experimental-modules`
 * `--experimental-permission`
 * `--experimental-print-required-tla`
-* `--experimental-quic`
 * `--experimental-require-module`
 * `--experimental-shadow-realm`
 * `--experimental-specifier-resolution`
@@ -3512,7 +3521,8 @@ variable is ignored.
 added: v7.7.0
 -->
 
-If `--use-openssl-ca` is enabled, this overrides and sets OpenSSL's directory
+If `--use-openssl-ca` is enabled, or if `--use-system-ca` is enabled on
+platforms other than macOS and Windows, this overrides and sets OpenSSL's directory
 containing trusted certificates.
 
 Be aware that unless the child environment is explicitly set, this environment
@@ -3525,7 +3535,8 @@ may cause them to trust the same CAs as node.
 added: v7.7.0
 -->
 
-If `--use-openssl-ca` is enabled, this overrides and sets OpenSSL's file
+If `--use-openssl-ca` is enabled, or if `--use-system-ca` is enabled on
+platforms other than macOS and Windows, this overrides and sets OpenSSL's file
 containing trusted certificates.
 
 Be aware that unless the child environment is explicitly set, this environment
